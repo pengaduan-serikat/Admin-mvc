@@ -26,7 +26,7 @@ class CreateUsers extends Migration
             $table->string('password');
             $table->string('first_name');
             $table->string('last_name');
-            $table->string('profile_pic');
+            $table->string('profile_pic')->nullable();
             $table->string('NIK');
             $table->timestamps();
         });
