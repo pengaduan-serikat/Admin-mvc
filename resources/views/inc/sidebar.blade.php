@@ -1,4 +1,4 @@
-<div class="sidebar" data-color="purple" data-image="/img/sidebar-5.jpg">
+<div class="sidebar" data-color="purple" data-image="{{asset('img/templates/sidebar-5.jpg')}}">
 
 <!--
 
@@ -9,33 +9,29 @@ Tip 2: you can also add an image using data-image tag
 
 <div class="sidebar-wrapper">
     <div class="logo">
-        <a href="http://www.creative-tim.com" class="simple-text">
+        <a href="/" class="simple-text">
             Creative Tim
         </a>
     </div>
 
     <ul class="nav">
-        <li >
-            <a href="/admin">
-                <i class="pe-7s-graph"></i>
-                <p>Dashboard</p>
-            </a>
-        </li>
         <li>
-            <a href="/admin/all-cat">
-                <i class="pe-7s-more"></i>
-                <p>Data Kucing</p>
+            <a href="/divisions">
+                {{-- <i class="pe-7s-more"></i> --}}
+                <i class="fa fa-arrow-circle-right" aria-hidden="true"></i>
+                <p>Data Divisi</p>
             </a>
         </li>
         <li>
             <a href="/admin/add-cat">
-                <i class="pe-7s-plus"></i>
+                {{-- <i class="pe-7s-plus"></i> --}}
+                <i class="fa fa-arrow-circle-right" aria-hidden="true"></i>
                 <p>Tambah Kucing</p>
             </a>
         </li>
         <li> 
             <a href="/admin/transaction">
-                <i class="pe-7s-shopbag"></i>
+                <i class="fa fa-arrow-circle-right" aria-hidden="true"></i>
                 <p>Transaksi</p>
             </a>
         </li>
@@ -43,7 +39,8 @@ Tip 2: you can also add an image using data-image tag
                 <a href="{{ route('logout') }}"
                   onclick="event.preventDefault();
                   document.getElementById('logout-form').submit();">
-                    <i class="pe-7s-rocket"></i>
+                    {{-- <i class="pe-7s-rocket"></i> --}}
+                    <i class="fa fa-power-off" aria-hidden="true"></i>
                     <p>Logout</p>
                 </a>
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">

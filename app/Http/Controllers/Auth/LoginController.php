@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 
 class LoginController extends Controller
 {
@@ -78,7 +77,8 @@ class LoginController extends Controller
     protected function validateLogin(Request $request)
     {
         $field = $this->field($request);
-
+        $out = new \Symfony\Component\Console\Output\ConsoleOutput();
+        $out->writeln($request);
         $messages = ["{$this->username()}.exists" => 'The account you are trying to login is not registered or it has been disabled.'];
 
         $this->validate($request, [

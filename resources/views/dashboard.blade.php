@@ -1,5 +1,5 @@
 @extends('layouts.admin')
 
 @section('content')
-    <h1>ini testingggg</h1>
+    <h2>Selamat datang</h2>
 @endsection
