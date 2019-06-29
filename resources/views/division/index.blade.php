@@ -1,28 +1,37 @@
 @extends('layouts.admin')
 
 @section('content')
-    {{-- <h2>ini dari division index</h2> --}}
-    <h2><strong>Data Divisi:</strong></h2>
-    <table class="table" id="tableCat">
-        <thead>
-            <th>No.</th>
-            <th>Name</th>
-            <th>Age</th>
-            <th>price</th>
-            <th>Status</th>
-            <th>Type</th>
-            <th>Action</th>
-        </thead>
-        <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>2</td>
-                    <td>3</td>
-                    <td>4</td>
-                    <td>5</td>
-                    <td>6</td>
-                    <td><a href="/admin/edit-cat/<%=data[i].id%>">Edit</a>  | <a href="/admin/delete-cat/<%=data[i].id%>">Delete</a></td>
-                </tr>
-        </tbody>
-    </table>
+{{-- <h2>ini dari division index</h2> --}}
+<h2><strong>Data Divisi:</strong></h2>
+<div class="col-md-12">
+  <a class="btn btn-primary" href="/divisions/create">Add</a>
+</div>
+<table class="table" id="tableCat">
+  <thead>
+    <th width="10%">No.</th>
+    <th width="75%">Name</th>
+    <th>Action</th>
+  </thead>
+  <tbody>
+    @if (count($divisions) > 0)
+      @foreach ($divisions as $division)
+        <tr>
+          <td>{{$loop->index+1}}</td>
+          <td>{{$division->name}}</td>
+          <td><a href="/divisions/{{$division->id}}">Edit</a> | <a href="#" onclick="event.preventDefault(); document.getElementById('delete-form-{{ $division->id }}').submit();">Delete</a>
+            <form action="/divisions/{{$division->id}}" method="POST" id="delete-form-{{ $division->id }}" style="display: none;">
+              @csrf
+              @method('DELETE')
+              <input type="hidden" value="{{ $division->id }}" name="id">
+           </form>
+          </td>
+        </tr>
+      @endforeach
+    @else
+    <tr>
+      <td colspan="3" align="center"> Tidak ada data divisi</td>
+    </tr>
+    @endif
+  </tbody>
+</table>
 @endsection

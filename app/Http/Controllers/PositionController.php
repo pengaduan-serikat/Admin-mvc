@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Division;
+use App\Position;
 use Illuminate\Http\Request;
 
-class DivisionController extends Controller
+class PositionController extends Controller
 {
   /**
    * Display a listing of the resource.
@@ -14,9 +14,9 @@ class DivisionController extends Controller
    */
   public function index()
   {
-    $divisions = Division::all();
+    $positions = Position::all();
     // return $divisions;
-    return view('division.index')->with('divisions', $divisions);
+    return view('position.index')->with('positions', $positions);
   }
 
   /**
@@ -26,7 +26,7 @@ class DivisionController extends Controller
    */
   public function create()
   {
-    return view('division.create');
+    return view('position.create');    
   }
 
   /**
@@ -37,72 +37,69 @@ class DivisionController extends Controller
    */
   public function store(Request $request)
   {
-    //
-    // error_log($request->name);
-    $division = new Division();
-    $division->name = $request->name;
+    $position = new Position();
+    $position->name = $request->name;
 
-    $division->save();
-    return redirect('/divisions');
+    $position->save();
+    return redirect('/positions');
   }
 
   /**
    * Display the specified resource.
    *
-   * @param  \App\Division  $division
+   * @param  \App\Position  $position
    * @return \Illuminate\Http\Response
    */
   public function show($id)
   {
     //
-    $division = Division::find($id);
+    $position = Position::find($id);
     // return 'haloooo'.$division;
-    return view('division.edit')->with('division', $division);
+    return view('position.edit')->with('position', $position);
   }
 
   /**
    * Show the form for editing the specified resource.
    *
-   * @param  \App\Division  $division
+   * @param  \App\Position  $position
    * @return \Illuminate\Http\Response
    */
   public function edit($id)
   {
-    $division = Division::find($id);
-    return view('division.edit')->with('division', $division);
+    $position = Position::find($id);
+    // return 'haloooo'.$division;
+    return view('position.edit')->with('position', $position);
   }
 
   /**
-   * Update the specified resdivisionource in storage.
+   * Update the specified resource in storage.
    *
    * @param  \Illuminate\Http\Request  $request
-   * @param  \App\Division  $division
+   * @param  \App\Position  $position
    * @return \Illuminate\Http\Response
    */
   public function update(Request $request, $id)
   {
     //
-    $division = Division::find($id);
-    $division->name = $request->name;
-    $division->save();
-    return redirect('/divisions');
+    $position = Position::find($id);
+    $position->name = $request->name;
+    $position->save();
+    return redirect('/positions');
   }
 
   /**
    * Remove the specified resource from storage.
    *
-   * @param  \App\Division  $division
+   * @param  \App\Position  $position
    * @return \Illuminate\Http\Response
    */
   public function destroy($id)
   {
-    //
-    // return 'deleteeeee'.$id;
-    $division = Division::find($id);
+    $division = Position::find($id);
     $division->delete();
     // error_log('masukkkkkkkkk');
     // error_log($division->name);
 
-    return redirect('/divisions');
+    return redirect('/positions');
   }
 }

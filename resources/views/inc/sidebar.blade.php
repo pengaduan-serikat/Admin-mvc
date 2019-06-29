@@ -15,24 +15,24 @@ Tip 2: you can also add an image using data-image tag
     </div>
 
     <ul class="nav">
-        <li>
+        <li class="{{ Request::is('divisions*') ? 'active' : '' }}">
             <a href="/divisions">
                 {{-- <i class="pe-7s-more"></i> --}}
                 <i class="fa fa-arrow-circle-right" aria-hidden="true"></i>
                 <p>Data Divisi</p>
             </a>
         </li>
-        <li>
-            <a href="/admin/add-cat">
+        <li class="{{ Request::is('positions*') ? 'active' : '' }}">
+            <a href="/positions">
                 {{-- <i class="pe-7s-plus"></i> --}}
                 <i class="fa fa-arrow-circle-right" aria-hidden="true"></i>
-                <p>Tambah Kucing</p>
+                <p>Data Posisi</p>
             </a>
         </li>
-        <li> 
-            <a href="/admin/transaction">
+        <li class="{{ Request::is('users*') ? 'active' : '' }}"> 
+            <a href="/users/">
                 <i class="fa fa-arrow-circle-right" aria-hidden="true"></i>
-                <p>Transaksi</p>
+                <p>Data User</p>
             </a>
         </li>
         <li class="active-pro">
