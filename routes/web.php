@@ -17,7 +17,8 @@
 
 Auth::routes();
 
-Route::get('/', 'HomeController@index')->middleware('is_admin')->name('home');
+Route::get('/', 'HomeController@index')
+      ->middleware('is_admin')->name('home');
 
 // divisi
 Route::resource('/divisions', 'DivisionController');
