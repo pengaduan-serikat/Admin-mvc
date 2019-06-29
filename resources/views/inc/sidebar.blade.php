@@ -10,7 +10,7 @@ Tip 2: you can also add an image using data-image tag
 <div class="sidebar-wrapper">
     <div class="logo">
         <a href="/" class="simple-text">
-            Creative Tim
+            Pengaduan Serikat
         </a>
     </div>
 
@@ -29,7 +29,7 @@ Tip 2: you can also add an image using data-image tag
                 <p>Data Posisi</p>
             </a>
         </li>
-        <li class="{{ Request::is('users*') ? 'active' : '' }}"> 
+        <li class="{{ Request::is('users*') ? 'active' : '' }}">
             <a href="/users/">
                 <i class="fa fa-arrow-circle-right" aria-hidden="true"></i>
                 <p>Data User</p>
