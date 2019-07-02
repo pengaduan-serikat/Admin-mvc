@@ -10,6 +10,7 @@ use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 use Tymon\JWTAuth\Exceptions\TokenExpiredException;
 use Tymon\JWTAuth\Exceptions\TokenInvalidException;
 use Tymon\JWTAuth\Exceptions\JWTException;
+use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 
 class Handler extends ExceptionHandler
 {
@@ -88,6 +89,12 @@ class Handler extends ExceptionHandler
                 return response()->json([
                     'message' => 'Token absent',
                 ], 400);
+            }
+
+            if ($exception instanceof UnauthorizedHttpException) {
+                return response()->json([
+                    'message' => 'Unauthorized',
+                ], 401);
             }
         }
 

@@ -21,8 +21,8 @@ Route::get('/test', function() {
     return ['message' => 'kampret'];
 })->middleware('private_access');
 
-// Route::middleware('jwt.auth')->get('users', function () {
-//     return auth('api')->user();
-// });
+Route::middleware('jwt.auth')->get('users', function () {
+    return auth('api')->user();
+});
 
 Route::post('/login', 'Api\Auth\LoginController@login');

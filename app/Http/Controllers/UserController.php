@@ -25,6 +25,32 @@ class UserController extends Controller
     // return $users;
   }
 
+  public function indexEmployees() {
+    $acces_types = DB::table('access_types')->where('name', 'User')->first();
+    $users = DB::table('users')
+              ->join('access_types', 'users.access_type_id', '=', 'access_types.id')
+              ->join('divisions', 'users.division_id', '=', 'divisions.id')
+              ->join('positions', 'users.position_id', '=', 'positions.id')
+              ->select('users.*', 'access_types.name as access_type', 'divisions.name as division', 'positions.name as position')
+              ->where('users.access_type_id', $acces_types->id)
+              ->get();
+    // return $users;
+    return view('employees.index')->with('users', $users);
+  }
+
+  public function indexExecutors() {
+    $acces_types = DB::table('access_types')->where('name', 'Executor')->first();
+    $users = DB::table('users')
+              ->join('access_types', 'users.access_type_id', '=', 'access_types.id')
+              ->join('divisions', 'users.division_id', '=', 'divisions.id')
+              ->join('positions', 'users.position_id', '=', 'positions.id')
+              ->select('users.*', 'access_types.name as access_type', 'divisions.name as division', 'positions.name as position')
+              ->where('users.access_type_id', $acces_types->id)
+              ->get();
+    // return $users;
+    return view('executors.index')->with('users', $users);
+  }
+
   /**
    * Show the form for creating a new resource.
    *
@@ -43,6 +69,36 @@ class UserController extends Controller
     ];
     // return $data['positions'];
     return view('user.create')->with('data', $data);
+  }
+
+  public function createEmployee() {
+    $access_types = DB::table('access_types')->where('name', 'User')->get();
+    $divisions = DB::table('divisions')->get();
+    $positions = DB::table('positions')->get();
+
+    $data = [
+      'access_types' => $access_types,
+      'positions' => $positions,
+      'divisions' => $divisions,
+    ];
+    // return $data['positions'];
+    // return $data;
+    return view('employees.create')->with('data', $data);
+  }
+
+  public function createExecutor() {
+    $access_types = DB::table('access_types')->where('name', 'Executor')->get();
+    $divisions = DB::table('divisions')->get();
+    $positions = DB::table('positions')->get();
+
+    $data = [
+      'access_types' => $access_types,
+      'positions' => $positions,
+      'divisions' => $divisions,
+    ];
+    // return $data['positions'];
+    // return $data;
+    return view('executors.create')->with('data', $data);
   }
 
   /**
@@ -66,6 +122,37 @@ class UserController extends Controller
     $user->save();
     return redirect('/users');
   }
+  
+
+  public function storeEmployee(Request $request) {
+    $user = new User();
+    $user->first_name = $request->first_name;
+    $user->last_name = $request->last_name;
+    $user->access_type_id = $request->access_types;
+    $user->division_id = $request->divisions;
+    $user->position_id = $request->positions;
+    $user->username = $request->username;
+    $user->email = $request->email;
+    $user->password = bcrypt('12345');
+    $user->NIK = $request->NIK;
+    $user->save();
+    return redirect('/employees');
+  }
+
+  public function storeExecutor(Request $request) {
+    $user = new User();
+    $user->first_name = $request->first_name;
+    $user->last_name = $request->last_name;
+    $user->access_type_id = $request->access_types;
+    $user->division_id = $request->divisions;
+    $user->position_id = $request->positions;
+    $user->username = $request->username;
+    $user->email = $request->email;
+    $user->password = bcrypt('12345');
+    $user->NIK = $request->NIK;
+    $user->save();
+    return redirect('/executors');
+  }
 
   /**
    * Display the specified resource.
@@ -87,6 +174,36 @@ class UserController extends Controller
     ];
 
     return view('user.edit')->with('data', $data);
+  }
+
+  public function showEmployee($id) {
+    $user = User::find($id);
+    $acces_types = DB::table('access_types')->where('name', 'User')->get();
+    $positions = DB::table('positions')->get();
+    $divisions = DB::table('divisions')->get();
+    $data = [
+      'user' => $user,
+      'access_types' => $acces_types,
+      'positions' => $positions,
+      'divisions' => $divisions,
+    ];
+
+    return view('employees.edit')->with('data', $data);
+  }
+
+  public function showExecutor($id) {
+    $user = User::find($id);
+    $acces_types = DB::table('access_types')->where('name', 'Executor')->get();
+    $positions = DB::table('positions')->get();
+    $divisions = DB::table('divisions')->get();
+    $data = [
+      'user' => $user,
+      'access_types' => $acces_types,
+      'positions' => $positions,
+      'divisions' => $divisions,
+    ];
+
+    return view('employees.edit')->with('data', $data);
   }
 
   /**
@@ -133,6 +250,36 @@ class UserController extends Controller
     return redirect('/users');
   }
 
+  public function updateEmployee(Request $request, $id)
+  {
+    $user = User::find($id);
+    $user->first_name = $request->first_name;
+    $user->last_name = $request->last_name;
+    $user->access_type_id = $request->access_types;
+    $user->division_id = $request->divisions;
+    $user->position_id = $request->positions;
+    $user->username = $request->username;
+    $user->email = $request->email;
+    $user->NIK = $request->NIK;
+    $user->save();
+    return redirect('/employees');
+  }
+
+  public function updateExecutor(Request $request, $id)
+  {
+    $user = User::find($id);
+    $user->first_name = $request->first_name;
+    $user->last_name = $request->last_name;
+    $user->access_type_id = $request->access_types;
+    $user->division_id = $request->divisions;
+    $user->position_id = $request->positions;
+    $user->username = $request->username;
+    $user->email = $request->email;
+    $user->NIK = $request->NIK;
+    $user->save();
+    return redirect('/executors');
+  }
+
   /**
    * Remove the specified resource from storage.
    *
@@ -144,5 +291,19 @@ class UserController extends Controller
     $user = User::find($id);
     $user->delete();
     return redirect('/users');
+  }
+
+  public function destroyEmployee($id)
+  {
+    $user = User::find($id);
+    $user->delete();
+    return redirect('/employees');
+  }
+  
+  public function destroyExecutor($id)
+  {
+    $user = User::find($id);
+    $user->delete();
+    return redirect('/executors');
   }
 }
