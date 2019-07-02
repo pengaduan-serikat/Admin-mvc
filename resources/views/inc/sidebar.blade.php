@@ -26,13 +26,37 @@ Tip 2: you can also add an image using data-image tag
             <a href="/positions">
                 {{-- <i class="pe-7s-plus"></i> --}}
                 <i class="fa fa-arrow-circle-right" aria-hidden="true"></i>
-                <p>Data Posisi</p>
+                <p>Data Jabatan</p>
             </a>
         </li>
-        <li class="{{ Request::is('users*') ? 'active' : '' }}">
+        {{-- <li class="{{ Request::is('users*') ? 'active' : '' }}">
             <a href="/users/">
                 <i class="fa fa-arrow-circle-right" aria-hidden="true"></i>
                 <p>Data User</p>
+            </a>
+        </li> --}}
+        <li class="{{ Request::is('executors*') ? 'active' : '' }}">
+            <a href="/executors/">
+                <i class="fa fa-arrow-circle-right" aria-hidden="true"></i>
+                <p>Data Anggota Serikat</p>
+            </a>
+        </li>
+        <li class="{{ Request::is('employees*') ? 'active' : '' }}">
+            <a href="/employees/">
+                <i class="fa fa-arrow-circle-right" aria-hidden="true"></i>
+                <p>Data Anggota Karyawan</p>
+            </a>
+        </li>
+        <li class="{{ Request::is('pengaduan*') ? 'active' : '' }}">
+            <a href="#">
+                <i class="fa fa-arrow-circle-right" aria-hidden="true"></i>
+                <p>Laporan pengaduan</p>
+            </a>
+        </li>
+        <li class="{{ Request::is('event*') ? 'active' : '' }}">
+            <a href="#">
+                <i class="fa fa-arrow-circle-right" aria-hidden="true"></i>
+                <p>Upload Event Serikat</p>
             </a>
         </li>
         <li class="active-pro">

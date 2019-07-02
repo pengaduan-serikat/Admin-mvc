@@ -29,7 +29,7 @@
       @endforeach
     @else
     <tr>
-      <td colspan="3" align="center"> Tidak ada data divisi</td>
+      <td colspan="3" align="center"> Tidak ada data</td>
     </tr>
     @endif
   </tbody>

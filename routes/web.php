@@ -26,8 +26,24 @@ Route::resource('/divisions', 'DivisionController');
 // position
 Route::resource('/positions', 'PositionController');
 
-// user
+// USER
 Route::resource('/users', 'UserController');
+
+// employee
+Route::get('/employees', 'UserController@indexEmployees');
+Route::get('/employees/create', 'UserController@createEmployee');
+Route::post('/employees', 'UserController@storeEmployee');
+Route::get('/employees/{id}', 'UserController@showEmployee');
+Route::put('/employees/{id}', 'UserController@updateEmployee');
+Route::delete('/employees/{id}', 'UserController@destroyEmployee');
+
+// executor
+Route::get('/executors', 'UserController@indexExecutors');
+Route::get('/executors/create', 'UserController@createExecutor');
+Route::post('/executors', 'UserController@storeExecutor');
+Route::get('/executors/{id}', 'UserController@showExecutor');
+Route::put('/executors/{id}', 'UserController@updateExecutor');
+Route::delete('/executors/{id}', 'UserController@destroyExecutor');
 
 // testing
 Route::get('/admin', function() {

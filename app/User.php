@@ -2,12 +2,13 @@
 
 namespace App;
 
+use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Notifications\Notifiable;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Facades\DB;
 
-class User extends Authenticatable
+class User extends Authenticatable implements JWTSubject
 {
     use Notifiable;
 
@@ -42,5 +43,27 @@ class User extends Authenticatable
         $accessType = DB::table('access_types')->where('name', 'Admin')->first();
         // const ADMIN_TYPE = $accessType->id;
         return $this->access_type_id === $accessType->id;
+    }
+
+    public function isUser() {
+        $accessType = DB::table('access_types')->where('name', 'User')->first();
+        // const ADMIN_TYPE = $accessType->id;
+        return $this->access_type_id === $accessType->id;
+    }
+
+    public function isExecutor() {
+        $accessType = DB::table('access_types')->where('name', 'Executor')->first();
+        // const ADMIN_TYPE = $accessType->id;
+        return $this->access_type_id === $accessType->id;
+    }
+
+    public function getJWTIdentifier()
+    {
+        return $this->getKey();
+    }
+
+    public function getJWTCustomClaims()
+    {
+        return [];
     }
 }

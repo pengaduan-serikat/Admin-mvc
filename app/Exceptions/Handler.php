@@ -4,6 +4,13 @@ namespace App\Exceptions;
 
 use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
+use Tymon\JWTAuth\Exceptions\TokenExpiredException;
+use Tymon\JWTAuth\Exceptions\TokenInvalidException;
+use Tymon\JWTAuth\Exceptions\JWTException;
+use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 
 class Handler extends ExceptionHandler
 {
@@ -46,6 +53,51 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+        if(strpos($request->getRequestUri(), 'api/')!==false) {
+            if ($exception instanceof ModelNotFoundException) {
+                return response()->json([
+                    'message' => 'Resource item not found',
+                ], 404);
+            }
+
+            if ($exception instanceof NotFoundHttpException) {
+                return response()->json([
+                    'message' => 'Resource not found',
+                ], 404);
+            }
+
+            if ($exception instanceof MethodNotAllowedHttpException) {
+                return response()->json([
+                    'message' => 'Method not allowed',
+                ], 404);
+            }
+
+            // jwt handler
+            if ($exception instanceof TokenExpiredException) {
+                return response()->json([
+                    'message' => 'Token expired',
+                ], 400);
+            }
+
+            if ($exception instanceof TokenInvalidException) {
+                return response()->json([
+                    'message' => 'Token is invalid',
+                ], 400);
+            }
+
+            if ($exception instanceof JWTException) {
+                return response()->json([
+                    'message' => 'Token absent',
+                ], 400);
+            }
+
+            if ($exception instanceof UnauthorizedHttpException) {
+                return response()->json([
+                    'message' => 'Unauthorized',
+                ], 401);
+            }
+        }
+
         return parent::render($request, $exception);
     }
 }
