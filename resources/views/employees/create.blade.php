@@ -15,9 +15,13 @@
       </div>
   </div>
   <div class="row">
-    <div class="col-md-6">
+    {{-- <div class="col-md-6">
       <label for="name">Username</label>
       <input type="text" class="form-control" name="username" id="username" placeholder="Nama Depan" autocomplete="off" required>
+    </div> --}}
+    <div class="col-md-6">
+      <label for="name">NIK</label>
+      <input type="text" class="form-control" name="NIK" id="NIK" placeholder="Nama Depan" autocomplete="off" required>
     </div>
     <div class="col-md-6">
       <label for="name">Email</label>
@@ -25,10 +29,6 @@
     </div>
   </div>
   <div class="row">
-    <div class="col-md-6">
-      <label for="name">NIK</label>
-      <input type="text" class="form-control" name="NIK" id="NIK" placeholder="Nama Depan" autocomplete="off" required>
-    </div>
     <div class="col-md-6">
       <label for="name">Hak Akses</label>
       {{-- {{$data}} --}}
@@ -38,8 +38,6 @@
         @endforeach
       </select>
     </div>
-  </div>
-  <div class="row">
     <div class="col-md-6">
       <label for="name">Divisi</label>
       <select class="form-control" name="divisions" id="divisions">
@@ -48,6 +46,8 @@
         @endforeach
       </select>
     </div>
+  </div>
+  <div class="row">
     <div class="col-md-6">
       <label for="name">Posisi</label>
       <select class="form-control" name="positions" id="positions">

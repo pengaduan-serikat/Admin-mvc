@@ -12,6 +12,7 @@
     <th>Nama</th>
     <th>NIK</th>
     <th>Hak akses</th>
+    <th>Status</th>
     <th>Posisi</th>
     <th>Divisi</th>
     <th>Action</th>
@@ -24,6 +25,13 @@
           <td>{{$user->first_name.' '.$user->last_name}}</td>
           <td>{{$user->NIK}}</td>
           <td>{{$user->access_type}}</td>
+          <td>
+            @if ($user->active === 1)
+              {{'Active'}}
+            @else
+              {{'Non Active'}}
+            @endif
+          </td>
           <td>{{$user->position}}</td>
           <td>{{$user->division}}</td>
           <td><a href="/executors/{{$user->id}}">Edit</a>

@@ -45,6 +45,7 @@ class LoginController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return array
      */
+
     protected function credentials(Request $request)
     {
         $field = $this->field($request);
@@ -55,17 +56,17 @@ class LoginController extends Controller
         ];
     }
 
-    /**
-     * Determine if the request field is email or username.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return string
-     */
+    // /**
+    //  * Determine if the request field is email or username.
+    //  *
+    //  * @param  \Illuminate\Http\Request  $request
+    //  * @return string
+    //  */
     public function field(Request $request)
     {
         $email = $this->username();
 
-        return filter_var($request->get($email), FILTER_VALIDATE_EMAIL) ? $email : 'username';
+        return filter_var($request->get($email), FILTER_VALIDATE_EMAIL) ? $email : 'NIK';
     }
 
     /**
@@ -79,6 +80,7 @@ class LoginController extends Controller
         $field = $this->field($request);
         // $out = new \Symfony\Component\Console\Output\ConsoleOutput();
         // $out->writeln($request);
+        error_log($this->field($request));
         $messages = ["{$this->username()}.exists" => 'The account you are trying to login is not registered or it has been disabled.'];
 
         $this->validate($request, [
@@ -86,4 +88,19 @@ class LoginController extends Controller
             'password' => 'required',
         ], $messages);
     }
+
+    // protected function attemptLogin(Request $request)
+    // {
+    //     error_log('test attemptLogin() =-=-=-');
+
+    //     return $this->guard()->attempt(
+    //         $this->credentials($request)
+    //     );
+    // }
+
+    // public function username()
+    // {
+    //     error_log('test username() =-=-=-');
+    //     return 'NIK';
+    // }
 }
