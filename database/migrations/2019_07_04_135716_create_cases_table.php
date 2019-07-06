@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateDivisions extends Migration
+class CreateCasesTable extends Migration
 {
   /**
    * Run the migrations.
@@ -13,10 +13,11 @@ class CreateDivisions extends Migration
    */
   public function up()
   {
-    if (!Schema::hasTable('divisions')) {
-      Schema::create('divisions', function (Blueprint $table) {
+    if (!Schema::hasTable('cases')) {
+      Schema::create('cases', function (Blueprint $table) {
         $table->bigIncrements('id');
-        $table->string('name');
+        $table->string('title');
+        $table->string('description');
         $table->timestamps();
       });
     }
@@ -29,6 +30,6 @@ class CreateDivisions extends Migration
    */
   public function down()
   {
-    Schema::dropIfExists('divisions');
+    Schema::dropIfExists('cases');
   }
 }
