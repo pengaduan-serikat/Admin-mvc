@@ -6,27 +6,29 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateAccessTypes extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
-    public function up()
-    {
-        Schema::create('access_types', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('name');
-            $table->timestamps();
-        });
+  /**
+   * Run the migrations.
+   *
+   * @return void
+   */
+  public function up()
+  {
+    if (!Schema::hasTable('access_types')) {
+      Schema::create('access_types', function (Blueprint $table) {
+        $table->bigIncrements('id');
+        $table->string('name');
+        $table->timestamps();
+      });
     }
+  }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::dropIfExists('access_types');
-    }
+  /**
+   * Reverse the migrations.
+   *
+   * @return void
+   */
+  public function down()
+  {
+    Schema::dropIfExists('access_types');
+  }
 }

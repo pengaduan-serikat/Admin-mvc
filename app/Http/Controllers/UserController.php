@@ -115,7 +115,8 @@ class UserController extends Controller
     $user->access_type_id = $request->access_types;
     $user->division_id = $request->divisions;
     $user->position_id = $request->positions;
-    $user->username = $request->username;
+    // $user->username = $request->username;
+    $user->active = false;
     $user->email = $request->email;
     $user->password = bcrypt('12345');
     $user->NIK = $request->NIK;
@@ -131,7 +132,8 @@ class UserController extends Controller
     $user->access_type_id = $request->access_types;
     $user->division_id = $request->divisions;
     $user->position_id = $request->positions;
-    $user->username = $request->username;
+    // $user->username = $request->username;
+    $user->active = false;
     $user->email = $request->email;
     $user->password = bcrypt('12345');
     $user->NIK = $request->NIK;
@@ -146,7 +148,8 @@ class UserController extends Controller
     $user->access_type_id = $request->access_types;
     $user->division_id = $request->divisions;
     $user->position_id = $request->positions;
-    $user->username = $request->username;
+    // $user->username = $request->username;
+    $user->active = false;
     $user->email = $request->email;
     $user->password = bcrypt('12345');
     $user->NIK = $request->NIK;
@@ -203,7 +206,7 @@ class UserController extends Controller
       'divisions' => $divisions,
     ];
 
-    return view('employees.edit')->with('data', $data);
+    return view('executors.edit')->with('data', $data);
   }
 
   /**
@@ -243,7 +246,7 @@ class UserController extends Controller
     $user->access_type_id = $request->access_types;
     $user->division_id = $request->divisions;
     $user->position_id = $request->positions;
-    $user->username = $request->username;
+    // $user->username = $request->username;
     $user->email = $request->email;
     $user->NIK = $request->NIK;
     $user->save();
@@ -258,7 +261,7 @@ class UserController extends Controller
     $user->access_type_id = $request->access_types;
     $user->division_id = $request->divisions;
     $user->position_id = $request->positions;
-    $user->username = $request->username;
+    // $user->username = $request->username;
     $user->email = $request->email;
     $user->NIK = $request->NIK;
     $user->save();
@@ -273,7 +276,7 @@ class UserController extends Controller
     $user->access_type_id = $request->access_types;
     $user->division_id = $request->divisions;
     $user->position_id = $request->positions;
-    $user->username = $request->username;
+    // $user->username = $request->username;
     $user->email = $request->email;
     $user->NIK = $request->NIK;
     $user->save();

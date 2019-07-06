@@ -17,12 +17,20 @@ use Illuminate\Http\Request;
 //     return $request->user();
 // });
 
-Route::get('/test', function() {
-    return ['message' => 'kampret'];
-})->middleware('private_access');
+// Route::get('/test', function() {
+//     return ['message' => 'tessst'];
+// })->middleware('private_access');
 
 Route::middleware('jwt.auth')->get('users', function () {
     return auth('api')->user();
 });
 
+// login
 Route::post('/login', 'Api\Auth\LoginController@login');
+Route::post('/employees/login', 'Api\Auth\LoginController@loginEmployee');
+
+Route::middleware('jwt.auth')->put('/change-password', 'Api\Auth\ChangePasswordController@changePassword');
+// Route::middleware('jwt.auth')->put('/change-password', function() {
+//     return 'test';
+// });
+
