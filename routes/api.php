@@ -34,3 +34,6 @@ Route::middleware('jwt.auth')->put('/change-password', 'Api\Auth\ChangePasswordC
 //     return 'test';
 // });
 
+// register 
+Route::post('/employees/register', 'Api\Auth\RegisterController@registerEmployee');
+

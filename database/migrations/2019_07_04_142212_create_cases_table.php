@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateUserCasesTable extends Migration
+class CreateCasesTable extends Migration
 {
   /**
    * Run the migrations.
@@ -13,8 +13,8 @@ class CreateUserCasesTable extends Migration
    */
   public function up()
   {
-    if (!Schema::hasTable('user_cases')) {
-      Schema::create('user_cases', function (Blueprint $table) {
+    if (!Schema::hasTable('cases')) {
+      Schema::create('cases', function (Blueprint $table) {
         $table->bigIncrements('id');
         $table->unsignedBigInteger('user_id')->nullable();
         $table->unsignedBigInteger('executor_id')->nullable();
@@ -24,6 +24,8 @@ class CreateUserCasesTable extends Migration
         $table->foreign('executor_id')->references('id')->on('users');
         $table->foreign('case_status_id')->references('id')->on('case_status');
         $table->foreign('feedback_id')->references('id')->on('feedbacks');
+        $table->string('title');
+        $table->string('description');
         $table->timestamps();
       });
     }
@@ -36,6 +38,6 @@ class CreateUserCasesTable extends Migration
    */
   public function down()
   {
-    Schema::dropIfExists('user_cases');
+    Schema::dropIfExists('cases');
   }
 }

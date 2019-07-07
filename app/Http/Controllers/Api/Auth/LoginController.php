@@ -6,9 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Validator;
-use JWTFactory;
 use JWTAuth;
-use App\User;
 use Illuminate\Support\Facades\DB;
 
 class LoginController extends Controller
@@ -39,13 +37,13 @@ class LoginController extends Controller
 	{
 		$access_type = DB::table('access_types')->where('name', 'User')->first();
 		$validator = Validator::make($request->all(), [
-			'username' => 'required|string|max:255',
+			'NIK' => 'required|string|max:255',
 			'password' => 'required'
 		]);
 		if ($validator->fails()) {
 			return response()->json($validator->errors());
 		}
-		$credentials = $request->only('username', 'password');
+		$credentials = $request->only('NIK', 'password');
 
 		try {
 			if (!$token = JWTAuth::attempt($credentials)) {
@@ -59,6 +57,11 @@ class LoginController extends Controller
 		if ($user->access_type_id !== $access_type->id) {
 			return response()->json(['message' => 'User type is not employee'], 400);
 		}
+
+		if (!$user->active) {
+			return response()->json(['message' => 'User not active'], 400);
+		}
+		
 		$currentUser = array_merge($user->toArray(), ['token' => $token]);
 		return response()->json(compact('currentUser'));
 	}
