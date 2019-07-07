@@ -16,7 +16,7 @@ class CreateFeedbacksTable extends Migration
     if (!Schema::hasTable('feedbacks')) {
       Schema::create('feedbacks', function (Blueprint $table) {
         $table->bigIncrements('id');
-        $table->string('description');
+        $table->longText('description');
         $table->timestamps();
       });
     }

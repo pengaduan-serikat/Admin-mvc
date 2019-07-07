@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 use Validator;
 use App\User;
 
+
 class RegisterController extends Controller
 {
   public function registerEmployee(Request $request) {

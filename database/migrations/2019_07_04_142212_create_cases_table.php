@@ -16,16 +16,16 @@ class CreateCasesTable extends Migration
     if (!Schema::hasTable('cases')) {
       Schema::create('cases', function (Blueprint $table) {
         $table->bigIncrements('id');
-        $table->unsignedBigInteger('user_id')->nullable();
+        $table->unsignedBigInteger('user_id');
         $table->unsignedBigInteger('executor_id')->nullable();
-        $table->unsignedBigInteger('case_status_id')->nullable();
+        $table->unsignedBigInteger('case_status_id');
         $table->unsignedBigInteger('feedback_id')->nullable();
         $table->foreign('user_id')->references('id')->on('users');
         $table->foreign('executor_id')->references('id')->on('users');
         $table->foreign('case_status_id')->references('id')->on('case_status');
         $table->foreign('feedback_id')->references('id')->on('feedbacks');
         $table->string('title');
-        $table->string('description');
+        $table->longText('description');
         $table->timestamps();
       });
     }

@@ -37,7 +37,6 @@
           <td><a href="/employees/{{$user->id}}">Edit</a>
             @if (Auth::user()->id !== $user->id)
             |
-            {{-- delete user button --}}
             <a href="#" onclick="event.preventDefault(); document.getElementById('delete-form-{{ $user->id }}').submit();">Delete</a>
             <form action="/employees/{{$user->id}}" method="POST" id="delete-form-{{ $user->id }}" style="display: none;">
               @csrf
@@ -45,7 +44,6 @@
               <input type="hidden" value="{{ $user->id }}" name="id">
            </form>
            @endif
-           {{-- delete user button --}}
           </td>
         </tr>
       @endforeach

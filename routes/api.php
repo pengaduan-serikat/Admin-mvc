@@ -29,11 +29,11 @@ Route::middleware('jwt.auth')->get('users', function () {
 Route::post('/login', 'Api\Auth\LoginController@login');
 Route::post('/employees/login', 'Api\Auth\LoginController@loginEmployee');
 
+// change password
 Route::middleware('jwt.auth')->put('/change-password', 'Api\Auth\ChangePasswordController@changePassword');
-// Route::middleware('jwt.auth')->put('/change-password', function() {
-//     return 'test';
-// });
 
 // register 
 Route::post('/employees/register', 'Api\Auth\RegisterController@registerEmployee');
 
+// create new case
+Route::middleware('jwt.auth')->post('/cases', 'Api\Cases\CreateCaseController@index');
