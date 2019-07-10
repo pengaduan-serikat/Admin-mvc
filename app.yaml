@@ -1,0 +1,12 @@
+runtime: php72
+
+env_variables:
+  ## Put production environment variables here.
+  APP_KEY: base64:SgOTWkJYZr5mQw1Df83a02EOn05md13Ye2b5hTj8s4M=
+  APP_STORAGE: /tmp
+  VIEW_COMPILED_PATH: /tmp
+  SESSION_DRIVER: cookie
+  APP_NAME: Laravel
+  APP_ENV: local
+  APP_DEBUG: true
+  APP_URL: http://localhost
