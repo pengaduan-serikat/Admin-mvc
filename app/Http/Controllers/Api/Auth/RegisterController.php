@@ -17,7 +17,7 @@ class RegisterController extends Controller
 			'email' => 'required|string|max:255'
 		]);
 		if ($validator->fails()) {
-			return response()->json($validator->errors());
+			return response()->json($validator->errors(), 400);
     }
 
     $access_type = DB::table('access_types')->where('name', 'User')->first();
