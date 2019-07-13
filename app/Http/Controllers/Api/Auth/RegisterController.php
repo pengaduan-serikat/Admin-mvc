@@ -33,11 +33,11 @@ class RegisterController extends Controller
     // ])->first();
 
     if (!$user) {
-      return response()->json(['message' => 'Incorrect NIK or email']);
+      return response()->json(['message' => 'Incorrect NIK or email'], 400);
     }
     
     if ($user->active) {
-      return response()->json(['message' => 'User already active']);
+      return response()->json(['message' => 'User already active'], 400);
     }
 
     $user->active = true;
