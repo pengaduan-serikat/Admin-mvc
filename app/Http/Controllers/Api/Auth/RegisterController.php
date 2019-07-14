@@ -14,7 +14,8 @@ class RegisterController extends Controller
   public function registerEmployee(Request $request) {
     $validator = Validator::make($request->all(), [
 			'NIK' => 'required|string|max:255',
-			'email' => 'required|string|max:255'
+      'email' => 'required|string|max:255',
+      'password' => 'required|string',
 		]);
 		if ($validator->fails()) {
 			return response()->json($validator->errors(), 400);
@@ -41,6 +42,7 @@ class RegisterController extends Controller
     }
 
     $user->active = true;
+    $user->password = bcrypt($request->password);
     $user->save();
     
     return response()->json(['message' => 'Successfully register'], 201);
