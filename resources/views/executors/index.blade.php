@@ -13,7 +13,6 @@
     <th>NIK</th>
     <th>Hak akses</th>
     <th>Status</th>
-    <th>Posisi</th>
     <th>Divisi</th>
     <th>Action</th>
   </thead>
@@ -32,7 +31,6 @@
               {{'Non Active'}}
             @endif
           </td>
-          <td>{{$user->position}}</td>
           <td>{{$user->division}}</td>
           <td><a href="/executors/{{$user->id}}">Edit</a>
             @if (Auth::user()->id !== $user->id)

@@ -43,8 +43,7 @@ class UserController extends Controller
     $users = DB::table('users')
               ->join('access_types', 'users.access_type_id', '=', 'access_types.id')
               ->join('divisions', 'users.division_id', '=', 'divisions.id')
-              ->join('positions', 'users.position_id', '=', 'positions.id')
-              ->select('users.*', 'access_types.name as access_type', 'divisions.name as division', 'positions.name as position')
+              ->select('users.*', 'access_types.name as access_type', 'divisions.name as division')
               ->where('users.access_type_id', $acces_types->id)
               ->get();
     // return $users;
@@ -89,11 +88,8 @@ class UserController extends Controller
   public function createExecutor() {
     $access_types = DB::table('access_types')->where('name', 'Executor')->get();
     $divisions = DB::table('divisions')->get();
-    $positions = DB::table('positions')->get();
-
     $data = [
       'access_types' => $access_types,
-      'positions' => $positions,
       'divisions' => $divisions,
     ];
     // return $data['positions'];
@@ -147,7 +143,6 @@ class UserController extends Controller
     $user->last_name = $request->last_name;
     $user->access_type_id = $request->access_types;
     $user->division_id = $request->divisions;
-    $user->position_id = $request->positions;
     // $user->username = $request->username;
     $user->active = false;
     $user->email = $request->email;
@@ -197,12 +192,10 @@ class UserController extends Controller
   public function showExecutor($id) {
     $user = User::find($id);
     $acces_types = DB::table('access_types')->where('name', 'Executor')->get();
-    $positions = DB::table('positions')->get();
     $divisions = DB::table('divisions')->get();
     $data = [
       'user' => $user,
       'access_types' => $acces_types,
-      'positions' => $positions,
       'divisions' => $divisions,
     ];
 
