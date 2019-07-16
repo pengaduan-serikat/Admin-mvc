@@ -44,7 +44,7 @@
       </select>
     </div>
   </div>
-  <div class="row">
+  {{-- <div class="row">
     <div class="col-md-6">
       <label for="name">Posisi</label>
       <select class="form-control" name="positions" id="positions">
@@ -53,7 +53,7 @@
           @endforeach
         </select>
     </div>
-  </div>
+  </div> --}}
 
   <div class="row">
       <br/>

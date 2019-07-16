@@ -18,7 +18,7 @@ class LoginController extends Controller
 			'password' => 'required'
 		]);
 		if ($validator->fails()) {
-			return response()->json($validator->errors());
+			return response()->json($validator->errors(), 400);
 		}
 		$credentials = $request->only('username', 'password');
 		try {
@@ -29,8 +29,9 @@ class LoginController extends Controller
 			return response()->json(['message' => 'could_not_create_token'], 500);
 		}
 		$user = Auth::user();
-		$currentUser = array_merge($user->toArray(), ['token' => $token]);
-		return response()->json(compact('currentUser'));
+		// $currentUser = array_merge($user->toArray(), ['token' => $token]);
+		// return response()->json(compact('currentUser'));
+		return response()->json(array_merge($user->toArray(), ['token' => $token]));
 	}
 
 	public function loginEmployee(Request $request)
@@ -62,7 +63,8 @@ class LoginController extends Controller
 			return response()->json(['message' => 'User not active'], 400);
 		}
 		
-		$currentUser = array_merge($user->toArray(), ['token' => $token]);
-		return response()->json(compact('currentUser'));
+		// $currentUser = array_merge($user->toArray(), ['token' => $token]);
+		// return response()->json(compact('currentUser'));
+		return response()->json(array_merge($user->toArray(), ['token' => $token]));
 	}
 }
