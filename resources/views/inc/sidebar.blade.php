@@ -47,8 +47,8 @@ Tip 2: you can also add an image using data-image tag
                 <p>Data Anggota Karyawan</p>
             </a>
         </li>
-        <li class="{{ Request::is('pengaduan*') ? 'active' : '' }}">
-            <a href="#">
+        <li class="{{ Request::is('cases*') ? 'active' : '' }}">
+            <a href="/cases">
                 <i class="fa fa-arrow-circle-right" aria-hidden="true"></i>
                 <p>Laporan pengaduan</p>
             </a>
