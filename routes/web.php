@@ -26,6 +26,9 @@ Route::resource('/divisions', 'DivisionController');
 // position
 Route::resource('/positions', 'PositionController');
 
+// Cases
+Route::get('/cases', 'CaseController@index');
+
 // USER
 Route::resource('/users', 'UserController');
 
@@ -49,3 +52,4 @@ Route::delete('/executors/{id}', 'UserController@destroyExecutor');
 Route::get('/admin', function() {
   return view('test');
 });
+
