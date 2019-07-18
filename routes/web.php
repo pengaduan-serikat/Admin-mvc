@@ -28,6 +28,8 @@ Route::resource('/positions', 'PositionController');
 
 // Cases
 Route::get('/cases', 'CaseController@index');
+Route::get('/cases/{id}', 'CaseController@show');
+Route::put('/cases/{id}', 'CaseController@update');
 
 // USER
 Route::resource('/users', 'UserController');
