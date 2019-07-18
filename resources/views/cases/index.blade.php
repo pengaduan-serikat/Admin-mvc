@@ -21,7 +21,7 @@
           <td>{{$case->full_name}}</td>
           <td>{{$case->case_status}}</td>
 
-          <td><a href="/cases{{$case->id}}">Edit</a>
+          <td><a href="/cases/{{$case->id}}">Detail</a>
           </td>
         </tr>
       @endforeach
