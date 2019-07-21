@@ -14,14 +14,9 @@ class ChangePasswordController extends Controller
     $user = Auth::user();
     $oldPassword = $request->oldPassword;
     $newPassword = $request->newPassword;
-    $confirm = $request->confirm;
-    
+
     if (!Hash::check($oldPassword, $user->password)) {
       return response()->json(['message' => 'Incorrect old password '], 400);
-    }
-
-    if ($newPassword !== $confirm) {
-      return response()->json(['message' => 'New password and confirm password need to be same'], 400);
     }
 
     Auth::user()->password = bcrypt($newPassword);
