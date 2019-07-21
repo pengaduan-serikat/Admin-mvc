@@ -13,16 +13,38 @@ class UserController extends Controller
    *
    * @return \Illuminate\Http\Response
    */
-  public function index()
+  public function index(Request $request)
   {
-    $users = DB::table('users')
-              ->join('access_types', 'users.access_type_id', '=', 'access_types.id')
-              ->join('divisions', 'users.division_id', '=', 'divisions.id')
-              ->join('positions', 'users.position_id', '=', 'positions.id')
-              ->select('users.*', 'access_types.name as access_type', 'divisions.name as division', 'positions.name as position')
-              ->get();
-    return view('user.index')->with('users', $users);
-    // return $users;
+    $filter = $request->query('filter');
+
+    $admin_access_type = DB::table('access_types')->where('name', '=', 'admin')->first();
+    $access_types = DB::table('access_types')->where('name', '!=', 'admin')->get();
+    if ($filter === null || $filter === '0') {
+      $users = DB::table('users')
+                ->join('access_types', 'users.access_type_id', '=', 'access_types.id')
+                ->join('divisions', 'users.division_id', '=', 'divisions.id')
+                ->leftJoin('positions', 'users.position_id', '=', 'positions.id')
+                ->where('users.access_type_id', '!=', $admin_access_type->id)
+                ->select('users.*', 'access_types.name as access_type', 'divisions.name as division', 'positions.name as position')
+                ->get();
+    } else {
+      // return 'sini';
+      $users = DB::table('users')
+                ->join('access_types', 'users.access_type_id', '=', 'access_types.id')
+                ->join('divisions', 'users.division_id', '=', 'divisions.id')
+                ->leftJoin('positions', 'users.position_id', '=', 'positions.id')
+                ->where('users.access_type_id', '=', $filter)
+                ->where('users.access_type_id', '!=', $admin_access_type->id)
+                ->select('users.*', 'access_types.name as access_type', 'divisions.name as division', 'positions.name as position')
+                ->get();
+    }
+      $data = [
+        'users' => $users,
+        'access_types' => $access_types,
+        'filter' => $filter,
+      ];
+    return view('user.index')->with('data', $data);
+    // return $data;
   }
 
   public function indexEmployees() {
