@@ -54,6 +54,7 @@ class LoginController extends Controller
 			return response()->json(['message' => 'could_not_create_token'], 500);
 		}
 		$user = Auth::user();
+		$division = DB::table('divisions')->where('id', '=', $user->division_id)->first();
 
 		if ($user->access_type_id !== $access_type->id) {
 			return response()->json(['message' => 'User type is not employee'], 400);
@@ -65,6 +66,6 @@ class LoginController extends Controller
 		
 		// $currentUser = array_merge($user->toArray(), ['token' => $token]);
 		// return response()->json(compact('currentUser'));
-		return response()->json(array_merge($user->toArray(), ['token' => $token]));
+		return response()->json(array_merge($user->toArray(), ['token' => $token], ['division_name' => $division->name]));
 	}
 }
