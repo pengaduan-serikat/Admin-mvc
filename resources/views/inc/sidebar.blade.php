@@ -35,10 +35,10 @@ Tip 2: you can also add an image using data-image tag
                 <p>Data User</p>
             </a>
         </li> --}}
-        <li class="{{ Request::is('executors*') ? 'active' : '' }}">
-            <a href="/executors/">
+        <li class="{{ Request::is('users*') ? 'active' : '' }}">
+            <a href="/users">
                 <i class="fa fa-arrow-circle-right" aria-hidden="true"></i>
-                <p>Data Anggota Serikat</p>
+                <p>Data Anggota</p>
             </a>
         </li>
         <li class="{{ Request::is('employees*') ? 'active' : '' }}">
