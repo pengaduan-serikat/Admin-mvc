@@ -14,7 +14,7 @@ class PositionController extends Controller
    */
   public function index()
   {
-    $positions = Position::all();
+    $positions = Position::paginate(10);;
     // return $divisions;
     return view('position.index')->with('positions', $positions);
   }

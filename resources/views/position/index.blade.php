@@ -2,7 +2,7 @@
 
 @section('content')
 {{-- <h2>ini dari position index</h2> --}}
-<h2><strong>Data Posisi:</strong></h2>
+<h2><strong>Data Jabatan:</strong></h2>
 <div class="col-md-12">
   <a class="btn btn-primary" href="/positions/create">Add</a>
 </div>
@@ -34,4 +34,5 @@
     @endif
   </tbody>
 </table>
+<span>{{$positions->links()}}</span>
 @endsection

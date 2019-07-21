@@ -41,12 +41,12 @@ Tip 2: you can also add an image using data-image tag
                 <p>Data Anggota</p>
             </a>
         </li>
-        <li class="{{ Request::is('employees*') ? 'active' : '' }}">
+        {{-- <li class="{{ Request::is('employees*') ? 'active' : '' }}">
             <a href="/employees/">
                 <i class="fa fa-arrow-circle-right" aria-hidden="true"></i>
                 <p>Data Anggota Karyawan</p>
             </a>
-        </li>
+        </li> --}}
         <li class="{{ Request::is('cases*') ? 'active' : '' }}">
             <a href="/cases">
                 <i class="fa fa-arrow-circle-right" aria-hidden="true"></i>
