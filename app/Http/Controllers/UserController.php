@@ -26,7 +26,9 @@ class UserController extends Controller
                 ->leftJoin('positions', 'users.position_id', '=', 'positions.id')
                 ->where('users.access_type_id', '!=', $admin_access_type->id)
                 ->select('users.*', 'access_types.name as access_type', 'divisions.name as division', 'positions.name as position')
-                ->get();
+                ->orderBy('first_name', 'ASC')
+                ->paginate(10);
+                // ->get();
     } else {
       // return 'sini';
       $users = DB::table('users')
@@ -36,7 +38,9 @@ class UserController extends Controller
                 ->where('users.access_type_id', '=', $filter)
                 ->where('users.access_type_id', '!=', $admin_access_type->id)
                 ->select('users.*', 'access_types.name as access_type', 'divisions.name as division', 'positions.name as position')
-                ->get();
+                ->orderBy('first_name', 'ASC')     
+                ->paginate(10);           
+                // ->get();
     }
       $data = [
         'users' => $users,
@@ -129,12 +133,15 @@ class UserController extends Controller
    */
   public function store(Request $request)
   {
+    $executor_type = DB::table('access_types')->where('name', '=', 'executor')->first();
     $user = new User();
     $user->first_name = $request->first_name;
     $user->last_name = $request->last_name;
     $user->access_type_id = $request->access_types;
     $user->division_id = $request->divisions;
-    $user->position_id = $request->positions;
+    if ($request->access_types != $executor_type->id) {
+      $user->position_id = $request->positions;
+    }
     // $user->username = $request->username;
     $user->active = false;
     $user->email = $request->email;
@@ -184,13 +191,15 @@ class UserController extends Controller
    */
   public function show($id)
   {
+    $executor_type = DB::table('access_types')->where('name', '=', 'executor')->first();
     $user = User::find($id);
-    $acces_types = DB::table('access_types')->get();
+    $acces_types = DB::table('access_types')->where('name', '!=', 'admin')->get();
     $positions = DB::table('positions')->get();
     $divisions = DB::table('divisions')->get();
     $data = [
       'user' => $user,
       'access_types' => $acces_types,
+      'executor_type' => $executor_type,
       'positions' => $positions,
       'divisions' => $divisions,
     ];
@@ -257,48 +266,57 @@ class UserController extends Controller
    */
   public function update(Request $request, $id)
   {
+    $executor_type = DB::table('access_types')->where('name', '=', 'executor')->first();
+    
     $user = User::find($id);
     $user->first_name = $request->first_name;
     $user->last_name = $request->last_name;
     $user->access_type_id = $request->access_types;
     $user->division_id = $request->divisions;
-    $user->position_id = $request->positions;
+    if ($request->access_types != $executor_type->id){
+      $user->position_id = $request->positions;
+    } else {
+
+      $user->position_id = null;
+    }
     // $user->username = $request->username;
     $user->email = $request->email;
     $user->NIK = $request->NIK;
     $user->save();
+
     return redirect('/users');
+    // return $user;
   }
 
-  public function updateEmployee(Request $request, $id)
-  {
-    $user = User::find($id);
-    $user->first_name = $request->first_name;
-    $user->last_name = $request->last_name;
-    $user->access_type_id = $request->access_types;
-    $user->division_id = $request->divisions;
-    $user->position_id = $request->positions;
-    // $user->username = $request->username;
-    $user->email = $request->email;
-    $user->NIK = $request->NIK;
-    $user->save();
-    return redirect('/employees');
-  }
+  // public function updateEmployee(Request $request, $id)
+  // {
+  //   $user = User::find($id);
+  //   $user->first_name = $request->first_name;
+  //   $user->last_name = $request->last_name;
+  //   $user->access_type_id = $request->access_types;
+  //   $user->division_id = $request->divisions;
+  //   $user->position_id = $request->positions;
+  //   // $user->username = $request->username;
+  //   $user->email = $request->email;
+  //   $user->NIK = $request->NIK;
+  //   $user->save();
+  //   return redirect('/employees');
+  // }
 
-  public function updateExecutor(Request $request, $id)
-  {
-    $user = User::find($id);
-    $user->first_name = $request->first_name;
-    $user->last_name = $request->last_name;
-    $user->access_type_id = $request->access_types;
-    $user->division_id = $request->divisions;
-    $user->position_id = $request->positions;
-    // $user->username = $request->username;
-    $user->email = $request->email;
-    $user->NIK = $request->NIK;
-    $user->save();
-    return redirect('/executors');
-  }
+  // public function updateExecutor(Request $request, $id)
+  // {
+  //   $user = User::find($id);
+  //   $user->first_name = $request->first_name;
+  //   $user->last_name = $request->last_name;
+  //   $user->access_type_id = $request->access_types;
+  //   $user->division_id = $request->divisions;
+  //   $user->position_id = $request->positions;
+  //   // $user->username = $request->username;
+  //   $user->email = $request->email;
+  //   $user->NIK = $request->NIK;
+  //   $user->save();
+  //   return redirect('/executors');
+  // }
 
   /**
    * Remove the specified resource from storage.

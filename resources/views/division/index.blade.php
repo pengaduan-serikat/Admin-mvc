@@ -34,4 +34,5 @@
     @endif
   </tbody>
 </table>
+<span>{{$divisions->links()}}</span>
 @endsection
