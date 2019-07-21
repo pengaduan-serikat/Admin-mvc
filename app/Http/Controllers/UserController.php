@@ -79,7 +79,8 @@ class UserController extends Controller
    */
   public function create()
   {
-    $access_types = DB::table('access_types')->get();
+    $access_types = DB::table('access_types')->where('name', '!=', 'admin')->get();
+    $executor_type = DB::table('access_types')->where('name', '=', 'executor')->first();
     $divisions = DB::table('divisions')->get();
     $positions = DB::table('positions')->get();
     
@@ -87,6 +88,7 @@ class UserController extends Controller
       'access_types' => $access_types,
       'positions' => $positions,
       'divisions' => $divisions,
+      'executor_type' => $executor_type,
     ];
     // return $data['positions'];
     return view('user.create')->with('data', $data);

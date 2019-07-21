@@ -32,7 +32,16 @@
     <div class="col-md-6">
       <label for="name">Hak Akses</label>
       {{-- {{$data}} --}}
-      <select class="form-control" name="access_types" id="access_types">
+      <select 
+        class="form-control" 
+        name="access_types"
+        id="access_types" 
+        onchange="
+          if (this.value == {{$data['executor_type']->id}}){ 
+            document.getElementById('form-position').style='display:none'
+          } else {
+            document.getElementById('form-position').style='display:block'
+          }">
         @foreach ($data['access_types'] as $item)
         <option value="{{$item->id}}">{{$item->name}}</option>
         @endforeach
@@ -48,7 +57,7 @@
         @endforeach
       </select>
     </div>
-    <div class="col-md-6">
+    <div class="col-md-6" id="form-position">
       <label for="name">Posisi</label>
       <select class="form-control" name="positions" id="positions">
           @foreach ($data['positions'] as $item)
