@@ -16,7 +16,7 @@ class CreateCaseStatusTable extends Migration
     if (!Schema::hasTable('case_status')) {
       Schema::create('case_status', function (Blueprint $table) {
         $table->bigIncrements('id');
-        $table->string('name');
+        $table->string('name', 30);
         $table->timestamps();
       });
     }
