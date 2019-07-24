@@ -51,13 +51,22 @@
     </div>
     <div class="row">
       <div class="col-md-6">
-        <label for="executors">Ajukan Executor</label>      
-        <select class="form-control" name="executor" required>
+        <label for="executors">Ajukan Executor</label>   
+
+        @if ($data['submittedStatus']->id != $data['case']->case_status_id)
+          <select class="form-control" name="executor" required disabled style="color: #000;">
+        @else
+          <select class="form-control" name="executor" required >            
+        @endif
           @if (count($data['executors']) === 0)
               <option value="">Tidak ada executor yang aktif</option>
           @else
             @foreach ($data['executors'] as $executor)
-            <option value="{{$executor->id}}">{{$executor->first_name.' '.$executor->last_name}}</option>
+              @if ($executor->id == $data['case']->executor_id)
+                <option value="{{$executor->id}}" selected>{{$executor->first_name.' '.$executor->last_name}}</option>
+              @else
+                <option value="{{$executor->id}}">{{$executor->first_name.' '.$executor->last_name}}</option>
+              @endif
             @endforeach
           @endif
         </select>  
@@ -103,12 +112,13 @@
     </div>
   </div> --}}
 
-
-  <div class="row">
-      <br/>
-      <div class="col-md-6">
-          <button type="submit" class="btn btn-primary">Submit</button>
-      </div>
-  </div>
+  @if ($data['submittedStatus']->id == $data['case']->case_status_id)
+    <div class="row">
+        <br/>
+        <div class="col-md-6">
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+    </div>
+  @endif
 </form>
 @endsection

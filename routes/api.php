@@ -41,4 +41,8 @@ Route::middleware('jwt.auth')->get('/cases', 'Api\Cases\EmployeeListCasesControl
 
 
 // check token
-Route::middleware('jwt.auth')->get('/check-token', 'Api\Auth\CheckTokenController@index');
+// Route::middleware('jwt.auth')->get('/check-token', 'Api\Auth\CheckTokenController@index');
+Route::group(['middleware' => ['jwt.auth', 'isExecutor']], function() {
+    Route::get('/executors/cases', 'Api\Cases\ExecutorListCasesController@index');
+    // Route::get('/executors/cases', function(){return 'ted';});
+});
