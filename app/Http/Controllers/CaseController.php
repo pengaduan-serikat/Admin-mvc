@@ -40,9 +40,11 @@ class CaseController extends Controller
                       ->where('access_type_id', $executorType->id)
                       ->where('active', true)
                       ->get();
+    $submittedStatus = DB::table('case_status')->where('name', 'Submitted')->first();
     $data = [
       'case' => $cases,
       'executors' => $executors,
+      'submittedStatus' => $submittedStatus,
     ];
     // return $data;
     return view('cases.edit')->with('data', $data);
