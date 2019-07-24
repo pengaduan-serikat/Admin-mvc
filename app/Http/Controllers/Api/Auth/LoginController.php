@@ -56,9 +56,9 @@ class LoginController extends Controller
 		$user = Auth::user();
 		$division = DB::table('divisions')->where('id', '=', $user->division_id)->first();
 
-		if ($user->access_type_id !== $access_type->id) {
-			return response()->json(['message' => 'User type is not employee'], 400);
-		}
+		// if ($user->access_type_id !== $access_type->id) {
+		// 	return response()->json(['message' => 'User type is not employee'], 400);
+		// }
 
 		if (!$user->active) {
 			return response()->json(['message' => 'User not active'], 400);

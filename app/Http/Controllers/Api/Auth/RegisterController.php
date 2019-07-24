@@ -21,10 +21,10 @@ class RegisterController extends Controller
 			return response()->json($validator->errors(), 400);
     }
 
-    $access_type = DB::table('access_types')->where('name', 'User')->first();
+    // $access_type = DB::table('access_types')->where('name', 'User')->first();
     $user = User::where([
       ['NIK', $request->NIK],
-      ['access_type_id', $access_type->id],
+      // ['access_type_id', $access_type->id],
     ])->first();
     
     
