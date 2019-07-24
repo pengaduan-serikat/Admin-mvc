@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Position;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PositionController extends Controller
 {
@@ -95,8 +96,18 @@ class PositionController extends Controller
    */
   public function destroy($id)
   {
-    $division = Position::find($id);
-    $division->delete();
+    $position_user = DB::table('users')
+    ->join('positions', 'users.position_id', '=' , 'positions.id')
+    ->select('users.*', 'positions.name as position_name')
+    ->where('position_id', '=', $id)->first();
+
+    if ($position_user) {
+      // return $position_user->position_name;
+      return redirect('/positions')->withErrors(['Ada user dibawah posisi '.$position_user->position_name.', tidak bisa meghapus divisi']);
+    }
+
+    $position = Position::find($id);
+    $position->delete();
     // error_log('masukkkkkkkkk');
     // error_log($division->name);
 

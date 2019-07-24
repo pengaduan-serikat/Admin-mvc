@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Division;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class DivisionController extends Controller
 {
@@ -37,14 +38,23 @@ class DivisionController extends Controller
    */
   public function store(Request $request)
   {
-    //
-    // error_log($request->name);
+
+    // $this->validateDivision($request);
+    
+    $messages = ["unique" => 'Nama divisi harus unik'];
+    $request->validate([
+      'name' => 'required|unique:divisions|min:2',
+    ], $messages);
+    
     $division = new Division();
     $division->name = $request->name;
-
+    
+    // return '$validatedData';
     $division->save();
     return redirect('/divisions');
   }
+
+
 
   /**
    * Display the specified resource.
@@ -98,6 +108,17 @@ class DivisionController extends Controller
   {
     //
     // return 'deleteeeee'.$id;
+
+    $division_user = DB::table('users')
+                      ->join('divisions', 'users.division_id', '=' , 'divisions.id')
+                      ->select('users.*', 'divisions.name as division_name')
+                      ->where('division_id', '=', $id)->first();
+
+    if ($division_user) {
+      // return $division_user->division_name;
+      return redirect('/divisions')->withErrors(['Ada user dibawah divisi '.$division_user->division_name.', tidak bisa meghapus divisi']);
+    }
+
     $division = Division::find($id);
     $division->delete();
     // error_log('masukkkkkkkkk');

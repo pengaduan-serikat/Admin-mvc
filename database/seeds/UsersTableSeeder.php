@@ -26,7 +26,7 @@ class UsersTableSeeder extends Seeder
             'active' => true,
             'first_name' => 'admin',
             'last_name' => 'admin',
-            'profile_pic' => '',
+            // 'profile_pic' => '',
             'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
             'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
         ]);

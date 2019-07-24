@@ -24,7 +24,7 @@ class CreateCasesTable extends Migration
         $table->foreign('executor_id')->references('id')->on('users');
         $table->foreign('case_status_id')->references('id')->on('case_status');
         $table->foreign('feedback_id')->references('id')->on('feedbacks');
-        $table->string('title');
+        $table->string('title', 50);
         $table->longText('description');
         $table->timestamps();
       });

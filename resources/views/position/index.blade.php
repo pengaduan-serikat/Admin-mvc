@@ -3,6 +3,15 @@
 @section('content')
 {{-- <h2>ini dari position index</h2> --}}
 <h2><strong>Data Jabatan:</strong></h2>
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
 <div class="col-md-12">
   <a class="btn btn-primary" href="/positions/create">Add</a>
 </div>
