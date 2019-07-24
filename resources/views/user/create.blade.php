@@ -2,7 +2,7 @@
 
 @section('content')
 <h2><strong>Form:</strong></h2>
-<form method="POST" action="/users/">
+<form method="POST" action="/users">
   @csrf
   <div class="row">
       <div class="col-md-6">
