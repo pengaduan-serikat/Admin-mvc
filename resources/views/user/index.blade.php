@@ -3,6 +3,15 @@
 @section('content')
 {{-- <h2>ini dari user index</h2> --}}
 <h2><strong>Data Anggota:</strong></h2>
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
 <div class="col-md-6">
   <a class="btn btn-primary" href="/users/create">Add</a>
 </div>
@@ -21,13 +30,14 @@
 </div>
 <div class="col-md-3">
   {{-- <button type="submit" class="btn btn-primary">Filter</button> --}}
-  <a class="btn btn-primary" onclick="window.location.replace(`/users?filter=`+document.getElementById('filter').value)">Add</a>
+  <a class="btn btn-primary" onclick="window.location.replace(`/users?filter=`+document.getElementById('filter').value)">Filter</a>
 </div>
 <table class="table" id="tableCat">
   <thead>
     <th width="10%">No.</th>
     <th>Nama</th>
     <th>NIK</th>
+    <th>email</th>
     <th>Status</th>
     <th>Hak akses</th>
     <th>Posisi</th>
@@ -41,6 +51,7 @@
           <td>{{$loop->index+1}}</td>
           <td>{{$user->first_name.' '.$user->last_name}}</td>
           <td>{{$user->NIK}}</td>
+          <td>{{$user->email}}</td>
           <td>
             @if ($user->active === 1)
               {{'Active'}}
@@ -74,7 +85,7 @@
       @endforeach
     @else
     <tr>
-      <td colspan="8" align="center"> Tidak ada data</td>
+      <td colspan="9" align="center"> Tidak ada data</td>
     </tr>
     @endif
   </tbody>

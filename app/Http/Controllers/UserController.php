@@ -337,6 +337,13 @@ class UserController extends Controller
    */
   public function destroy($id)
   {
+    $cases = DB::table('cases')->where('user_id', $id)->orWhere('executor_id', $id)->get();
+
+    if ($cases) {
+      // return $division_user->division_name;
+      return redirect('/users')->withErrors(['Ada pengaduan yang bersangkutan dengan user ini, tidak bisa menghapus user']);
+    }
+
     $user = User::find($id);
     $user->delete();
     return redirect('/users');
