@@ -133,6 +133,17 @@ class UserController extends Controller
    */
   public function store(Request $request)
   {
+
+    $messages = ["unique" => 'NIK telah digunakan, gunakan NIK lain'];
+    $request->validate([
+      'NIK' => 'required|unique:users',
+    ], $messages);
+
+    $messages = ["unique" => 'email telah digunakan, gunakan email lain'];
+    $request->validate([
+      'email' => 'required|unique:users',
+    ], $messages);
+
     $executor_type = DB::table('access_types')->where('name', '=', 'executor')->first();
     $user = new User();
     $user->first_name = $request->first_name;
