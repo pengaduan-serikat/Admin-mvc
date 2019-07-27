@@ -279,6 +279,11 @@ class UserController extends Controller
   {
     $executor_type = DB::table('access_types')->where('name', '=', 'executor')->first();
     
+    $cases = DB::table('cases')->where('user_id', $id)->orWhere('executor_id', $id)->get();
+
+    if ($cases && $request->access_types != $executor_type->id) {
+      return redirect('/users/'.$id)->withErrors(['Tidak bisa merubah hak akses karena user ini sudah menjadi executor dari pengaduan']);      
+    }
     $user = User::find($id);
     $user->first_name = $request->first_name;
     $user->last_name = $request->last_name;
@@ -287,7 +292,6 @@ class UserController extends Controller
     if ($request->access_types != $executor_type->id){
       $user->position_id = $request->positions;
     } else {
-
       $user->position_id = null;
     }
     // $user->username = $request->username;
@@ -338,7 +342,7 @@ class UserController extends Controller
   public function destroy($id)
   {
     $cases = DB::table('cases')->where('user_id', $id)->orWhere('executor_id', $id)->get();
-
+    
     if ($cases) {
       // return $division_user->division_name;
       return redirect('/users')->withErrors(['Ada pengaduan yang bersangkutan dengan user ini, tidak bisa menghapus user']);
