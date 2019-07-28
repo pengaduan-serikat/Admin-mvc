@@ -40,7 +40,7 @@ Route::middleware('jwt.auth')->post('/cases', 'Api\Cases\CreateCaseController@in
 Route::middleware('jwt.auth')->get('/cases', 'Api\Cases\EmployeeListCasesController@index');
 
 // get detail cases by users
-Route::get('/cases/{id}', 'Api\Cases\DetailCaseController@index');
+Route::get('/cases/{id}', 'Api\Cases\DetailCaseController@indexByUsers');
 
 // check token
 Route::middleware('jwt.auth')->get('/check-token', 'Api\Auth\CheckTokenController@index');
