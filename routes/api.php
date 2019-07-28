@@ -39,6 +39,8 @@ Route::post('/employees/register', 'Api\Auth\RegisterController@registerEmployee
 Route::middleware('jwt.auth')->post('/cases', 'Api\Cases\CreateCaseController@index');
 Route::middleware('jwt.auth')->get('/cases', 'Api\Cases\EmployeeListCasesController@index');
 
+// get detail cases by users
+Route::get('/cases/{id}', 'Api\Cases\DetailCaseController@index');
 
 // check token
 Route::middleware('jwt.auth')->get('/check-token', 'Api\Auth\CheckTokenController@index');
