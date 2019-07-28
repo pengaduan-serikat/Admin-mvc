@@ -6,6 +6,38 @@
   @csrf
   @method('PUT')
   <div class="row">
+    <div class="col-md-6">
+      <label for="reporter">Diadukan oleh</label>  
+      <input 
+        value="{{$data['case']->full_name}}" 
+        type="text" 
+        class="form-control" 
+        name="reporter" 
+        id="reporter" 
+        placeholder="Diadukan oleh" 
+        autocomplete="off" 
+        required
+        readonly="readonly"
+        style="color: #000;"
+      >
+    </div>
+    <div class="col-md-6">
+        <label for="positions">Jabatan</label>  
+        <input 
+          value="{{$data['case']->position_name}}" 
+          type="text" 
+          class="form-control" 
+          name="positions" 
+          id="positions" 
+          placeholder="Jabatan" 
+          autocomplete="off" 
+          required
+          readonly="readonly"
+          style="color: #000;"
+        >
+      </div>
+  </div>
+  <div class="row">
       <div class="col-md-6">
         <label for="name">Judul</label>
         <input 
@@ -49,6 +81,7 @@
         rows="6" 
       >{{$data['case']->description}}</textarea>
     </div>
+    
     <div class="row">
       <div class="col-md-6">
         <label for="executors">Ajukan Executor</label>   

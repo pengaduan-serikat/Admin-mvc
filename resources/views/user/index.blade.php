@@ -29,7 +29,6 @@
   </select>
 </div>
 <div class="col-md-3">
-  {{-- <button type="submit" class="btn btn-primary">Filter</button> --}}
   <a class="btn btn-primary" onclick="window.location.replace(`/users?filter=`+document.getElementById('filter').value)">Filter</a>
 </div>
 <table class="table" id="tableCat">
