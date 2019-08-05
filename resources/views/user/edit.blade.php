@@ -91,17 +91,36 @@
       <div class="col-md-6" id="form-position" style="display:none;">
         <label for="name">Posisi</label>
         <select class="form-control" name="positions" id="positions">
-            @foreach ($data['positions'] as $item)
-              @if ($data['user']->position_id === $item->id)
-                <option value="{{$item->id}}" selected>{{$item->name}}</option>
-              @else
-                <option value="{{$item->id}}">{{$item->name}}</option>
-              @endif
-            @endforeach
-          </select>
+          @foreach ($data['positions'] as $item)
+            @if ($data['user']->position_id === $item->id)
+              <option value="{{$item->id}}" selected>{{$item->name}}</option>
+            @else
+              <option value="{{$item->id}}">{{$item->name}}</option>
+            @endif
+          @endforeach
+        </select>
       </div>
     @endif
-    
+    <div class="col-md-6" id="form-active">
+      <label for="active">Status User</label>
+      <select class="form-control" name="active" id="active">
+          <option value="0"
+            @if ($data['user']->active == 0)
+                selected
+            @endif
+          >Non Active</option>
+          <option value="1"
+            @if ($data['user']->active == 1)
+                selected
+            @endif
+          >Active</option>
+          <option value="2"
+            @if ($data['user']->active == 2)
+                selected
+            @endif
+          >Expired</option>
+        </select>
+    </div>
   </div>
 
   <div class="row">

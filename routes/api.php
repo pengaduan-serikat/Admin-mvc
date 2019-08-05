@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 /*
 |--------------------------------------------------------------------------
@@ -52,3 +53,10 @@ Route::group(['middleware' => ['jwt.auth', 'isExecutor']], function() {
     Route::post('/executors/cases/{id}/feedback', 'Api\Cases\FeedbackCaseController@index');
     // Route::get('/executors/cases', function(){return 'ted';});
 });
+
+// Route::get('/testing123', function() {
+//     $user = DB::table('users')->where('nik', '11111')->update(['active' => 1]);
+
+//     $user = DB::table('users')->where('nik', '11111')->get();
+//     return $user;
+// });

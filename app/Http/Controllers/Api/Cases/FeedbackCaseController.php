@@ -27,8 +27,9 @@ class FeedbackCaseController extends Controller
     $feedback->save();
 
     // $case->feedback_id = $feedback->id;
-    // $case->case_status_id = $completeStatus->id;
-    // $case->save();
+    $case->case_status_id = $completeStatus->id;
+    $case->save();
+    
     $case = Cases::where('cases.id', '=', $id)
       ->join('users as user', 'user.id', '=', 'cases.user_id')
       ->join('users as executor', 'executor.id', '=', 'cases.executor_id')

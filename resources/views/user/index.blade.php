@@ -52,8 +52,10 @@
           <td>{{$user->NIK}}</td>
           <td>{{$user->email}}</td>
           <td>
-            @if ($user->active === 1)
+            @if ($user->active == 1)
               {{'Active'}}
+            @elseif($user->active == 2)
+              {{'Expired'}}
             @else
               {{'Non Active'}}
             @endif
