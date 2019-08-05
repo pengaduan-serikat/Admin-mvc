@@ -295,6 +295,7 @@ class UserController extends Controller
       $user->position_id = null;
     }
     // $user->username = $request->username;
+    $user->active = $request->active;
     $user->email = $request->email;
     $user->NIK = $request->NIK;
     $user->save();
