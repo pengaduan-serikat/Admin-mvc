@@ -72,5 +72,6 @@
     @endif
   </tbody>
 </table>
-<span>{{$data['cases']->links()}}</span>
+{{-- <span>{{$data['cases']->links()}}</span> --}}
+{{-- <span>{{$data['users']->links()}}</span> --}}
 @endsection
