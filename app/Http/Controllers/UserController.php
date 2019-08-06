@@ -342,7 +342,7 @@ class UserController extends Controller
    */
   public function destroy($id)
   {
-    $cases = DB::table('cases')->where('user_id', $id)->orWhere('executor_id', $id)->get();
+    $cases = DB::table('cases')->where('user_id', $id)->orWhere('executor_id', $id)->first();
     
     if ($cases) {
       // return $division_user->division_name;

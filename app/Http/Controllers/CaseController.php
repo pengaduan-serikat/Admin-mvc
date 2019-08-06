@@ -15,34 +15,42 @@ class CaseController extends Controller
     $monthFilter = $request->query('month');
     $yearFilter = $request->query('year');
 
-    $cases = Cases::join('case_status', 'cases.case_status_id', '=', 'case_status.id')
-                    ->join('users', 'cases.user_id', '=', 'users.id')
-                    ->select(
-                      'cases.*',
-                      'case_status.name as case_status',
-                      DB::raw("CONCAT(users.first_name, ' ', users.last_name) as full_name"))
-                    ->orderBy('cases.created_at', 'desc')
-                    ->paginate(10);
-                    // ->get();
+    // $cases = Cases::join('case_status', 'cases.case_status_id', '=', 'case_status.id')
+    //                 ->join('users', 'cases.user_id', '=', 'users.id')
+    //                 ->select(
+    //                   'cases.*',
+    //                   'case_status.name as case_status',
+    //                   DB::raw("CONCAT(users.first_name, ' ', users.last_name) as full_name"))
+    //                 ->orderBy('cases.created_at', 'desc')
+    //                 // ->paginate(10);
+    //                 ->get();
+
+    $queryCase = Cases::query();
+
+    $queryCase->join('case_status', 'cases.case_status_id', '=', 'case_status.id')
+              ->join('users', 'cases.user_id', '=', 'users.id')
+              ->select(
+                'cases.*',
+                'case_status.name as case_status',
+                DB::raw("CONCAT(users.first_name, ' ', users.last_name) as full_name"))
+              ->orderBy('cases.created_at', 'desc');
+
 
     if ($monthFilter) {
-      $cases = $cases->filter(function ($case) use ($monthFilter) {
-        return date('m', strtotime($case->created_at)) == $monthFilter;
-      });
+      $queryCase->whereMonth('cases.created_at', '=', $monthFilter);
     }
 
     if ($yearFilter) {
-      $cases = $cases->filter(function ($case) use ($yearFilter) {
-        return date('Y', strtotime($case->created_at)) == $yearFilter;
-      });
+      $queryCase->whereYear ('cases.created_at', '=', $yearFilter);
     }
 
     $data = [
-      'cases' => $cases,
+      'cases' => $queryCase->paginate(10),
       'month' => $month,
       'year' => $year,
     ];
 
+    // return $queryCase->paginate(10);
     return view('cases.index')->with('data', $data);
   }
 
