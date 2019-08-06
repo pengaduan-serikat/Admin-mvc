@@ -54,7 +54,7 @@ Tip 2: you can also add an image using data-image tag
             </a>
         </li>
         <li class="{{ Request::is('event*') ? 'active' : '' }}">
-            <a href="#">
+            <a href="/events">
                 <i class="fa fa-arrow-circle-right" aria-hidden="true"></i>
                 <p>Upload Event Serikat</p>
             </a>
