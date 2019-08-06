@@ -34,6 +34,9 @@ Route::put('/cases/{id}', 'CaseController@update');
 // USER
 Route::resource('/users', 'UserController');
 
+// Events
+Route::resource('/events', 'EventController');
+
 // employee
 Route::get('/employees', 'UserController@indexEmployees');
 Route::get('/employees/create', 'UserController@createEmployee');
@@ -55,3 +58,21 @@ Route::get('/admin', function() {
   return view('test');
 });
 
+
+Route::get('storage/{filename}', function ($filename)
+{
+  // return 'test';
+  $path = storage_path('public/' . $filename);
+  // return $path;
+  if (!File::exists($path)) {
+      abort(404);
+  }
+
+  $file = File::get($path);
+  $type = File::mimeType($path);
+
+  $response = Response::make($file, 200);
+  $response->header("Content-Type", $type);
+
+  return $response;
+}); 
