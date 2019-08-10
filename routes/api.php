@@ -33,6 +33,9 @@ Route::post('/employees/login', 'Api\Auth\LoginController@loginEmployee');
 // change password
 Route::middleware('jwt.auth')->put('/change-password', 'Api\Auth\ChangePasswordController@changePassword');
 
+// forgot password
+Route::post('/forgot-password', 'Api\Auth\ForgotPasswordController@index');
+
 // register 
 Route::post('/employees/register', 'Api\Auth\RegisterController@registerEmployee');
 
