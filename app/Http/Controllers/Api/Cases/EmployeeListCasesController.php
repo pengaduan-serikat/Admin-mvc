@@ -15,7 +15,7 @@ class EmployeeListCasesController extends Controller
               ->join('case_status', 'cases.case_status_id', '=', 'case_status.id')
               ->select('cases.*', 'case_status.name as case_status')
               ->orderBy('created_at', 'DESC')
-              ->get();
+              ->paginate(10);
 
     return $cases;
   }
