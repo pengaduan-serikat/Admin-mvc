@@ -60,3 +60,6 @@ Route::group(['middleware' => ['jwt.auth', 'isExecutor']], function() {
 //     $user = DB::table('users')->where('nik', '11111')->get();
 //     return $user;
 // });
+
+// Event
+Route::middleware('jwt.auth')->get('/events', 'Api\Event\ListController@index');
