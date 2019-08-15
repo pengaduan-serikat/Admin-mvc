@@ -15,23 +15,14 @@ class CaseController extends Controller
     $monthFilter = $request->query('month');
     $yearFilter = $request->query('year');
 
-    // $cases = Cases::join('case_status', 'cases.case_status_id', '=', 'case_status.id')
-    //                 ->join('users', 'cases.user_id', '=', 'users.id')
-    //                 ->select(
-    //                   'cases.*',
-    //                   'case_status.name as case_status',
-    //                   DB::raw("CONCAT(users.first_name, ' ', users.last_name) as full_name"))
-    //                 ->orderBy('cases.created_at', 'desc')
-    //                 // ->paginate(10);
-    //                 ->get();
-
+ 
     $queryCase = Cases::query();
 
-    $queryCase->join('case_status', 'cases.case_status_id', '=', 'case_status.id')
-              ->join('users', 'cases.user_id', '=', 'users.id')
+    $queryCase->join('users', 'cases.user_id', '=', 'users.id')
+              // ->join('case_status', 'cases.case_status_id', '=', 'case_status.id')
               ->select(
                 'cases.*',
-                'case_status.name as case_status',
+                // 'case_status.name as case_status',
                 DB::raw("CONCAT(users.first_name, ' ', users.last_name) as full_name"))
               ->orderBy('cases.created_at', 'desc');
 
@@ -52,6 +43,7 @@ class CaseController extends Controller
 
     // return $queryCase->paginate(10);
     return view('cases.index')->with('data', $data);
+    // return $data;
   }
 
   public function indexSumary(Request $request) {
@@ -59,12 +51,12 @@ class CaseController extends Controller
   }
 
   public function show($id) {
-    $cases = Cases::join('case_status', 'cases.case_status_id', '=', 'case_status.id')
-                    ->join('users', 'cases.user_id', '=', 'users.id')
+    $cases = Cases::join('users', 'cases.user_id', '=', 'users.id')
+                    // ->join('case_status', 'cases.case_status_id', '=', 'case_status.id')
                     ->join('positions', 'users.position_id', '=', 'positions.id')
                     ->select(
                       'cases.*',
-                      'case_status.name as case_status',
+                      // 'case_status.name as case_status',
                       DB::raw("CONCAT(users.first_name, ' ', users.last_name) as full_name"),
                       'positions.name as position_name'
                       )

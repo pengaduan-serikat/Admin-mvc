@@ -47,7 +47,7 @@
     <th width="10%">No.</th>
     <th>Judul</th>
     <th>Diadukan Oleh</th>
-    <th>Status Pengaduan</th>
+    {{-- <th>Status Pengaduan</th> --}}
     <th>Tanggal Pengaduan</th>
     <th>Action</th>
   </thead>
@@ -58,7 +58,7 @@
           <td>{{$loop->index+1}}</td>
           <td>{{$case->title}}</td>
           <td>{{$case->full_name}}</td>
-          <td>{{$case->case_status}}</td>
+          {{-- <td>{{$case->case_status}}</td> --}}
           <td>{{date('d M Y', strtotime($case->created_at))}}</td>
 
           <td><a href="/cases/{{$case->id}}">Detail</a>

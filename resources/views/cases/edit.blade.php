@@ -54,7 +54,7 @@
         >
       </div>
 
-      <div class="col-md-6">
+      {{-- <div class="col-md-6">
         <label for="name">Status</label>
         <input 
           type="text" 
@@ -68,21 +68,7 @@
           readonly
           style="color: #000;"
         >
-      </div>
-  </div>
-
-  <div class="row">
-    <div class="col-md-6">
-      <label for="description">Deskripsi</label>
-      <textarea
-        class="form-control" 
-        style="color: #000;"
-        readonly
-        rows="6" 
-      >{{$data['case']->description}}</textarea>
-    </div>
-    
-    <div class="row">
+      </div> --}}
       <div class="col-md-6">
         <label for="executors">Ajukan Executor</label>   
 
@@ -104,6 +90,21 @@
           @endif
         </select>  
       </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <label for="description">Deskripsi</label>
+      <textarea
+        class="form-control" 
+        style="color: #000;"
+        readonly
+        rows="6" 
+      >{{$data['case']->description}}</textarea>
+    </div>
+    
+    <div class="row">
+      
     </div>
   </div>
 
