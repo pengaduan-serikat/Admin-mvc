@@ -22,7 +22,7 @@ class ExecutorListCasesController extends Controller
               // })
               // ->join('case_status', 'feedbacks.case_status_id', '=', 'case_status.id')
               ->select(
-                  'cases.*',
+                  'cases.*'
 
                 )
               ->orderBy('cases.created_at', 'DESC')
