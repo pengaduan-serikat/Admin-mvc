@@ -19,7 +19,7 @@ class DetailCaseController extends Controller
             ->select(
               'cases.*', 
               DB::raw("CONCAT(user.first_name, ' ', user.last_name) as user_full_name"), 
-              DB::raw("CONCAT(executor.first_name, ' ', executor.last_name) as executor_full_name"), 
+              DB::raw("CONCAT(executor.first_name, ' ', executor.last_name) as executor_full_name")
               // 'case_status.name as case_status', 
               // 'feedbacks.description as feedback'
               )
