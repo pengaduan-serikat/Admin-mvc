@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Cases;
+use App\Feedback;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -19,7 +20,12 @@ class CaseController extends Controller
     $queryCase = Cases::query();
 
     $queryCase->join('users', 'cases.user_id', '=', 'users.id')
-              // ->join('case_status', 'cases.case_status_id', '=', 'case_status.id')
+              // ->join('feedbacks', function($join)  {
+              //   $join->on('feedbacks.case_id', '=', 'cases.id')
+              //       ->orderBy('feedbacks.created_at', 'DESC')
+              //       ->limit(1);
+              // })
+              // ->join('case_status', 'feedbacks.case_status_id', '=', 'case_status.id')
               ->select(
                 'cases.*',
                 // 'case_status.name as case_status',
@@ -68,10 +74,18 @@ class CaseController extends Controller
                       ->where('active', true)
                       ->get();
     $submittedStatus = DB::table('case_status')->where('name', 'Submitted')->first();
+    $feedback = Feedback::join('case_status', 'feedbacks.case_status_id', '=', 'case_status.id')
+                        ->select(
+                          'feedbacks.*',
+                          'case_status.name as case_status'
+                          )
+                        ->where('feedbacks.case_id', '=', $id)
+                        ->get();
     $data = [
       'case' => $cases,
       'executors' => $executors,
       'submittedStatus' => $submittedStatus,
+      'feedbacks' => $feedback,
     ];
     // return $data;
     return view('cases.edit')->with('data', $data);
@@ -82,8 +96,18 @@ class CaseController extends Controller
     $case_status = DB::table('case_status')->where('name', 'In Progress')->first();
 
     $case->executor_id = $request->executor;
-    $case->case_status_id = $case_status->id;
+    // $case->case_status_id = $case_status->id;
     $case->save();
+
+    $case_status = DB::table('case_status')->where('name', 'In Progress')->first();
+
+    $feedback = new Feedback();
+    $feedback->case_id = $id;
+    $feedback->case_status_id = $case_status->id;
+    $feedback->description = 'Case in progress';
+    $feedback->save();
+
+    // return $feedback;
     return redirect('/cases');;
   }
 }

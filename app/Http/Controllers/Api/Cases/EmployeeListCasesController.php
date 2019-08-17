@@ -12,8 +12,11 @@ class EmployeeListCasesController extends Controller
     $user = Auth::user();
 
     $cases = Cases::where('user_id', $user->id)
-              ->join('case_status', 'cases.case_status_id', '=', 'case_status.id')
-              ->select('cases.*', 'case_status.name as case_status')
+              // ->join('case_status', 'cases.case_status_id', '=', 'case_status.id')
+              ->select(
+                'cases.*', 
+                // 'case_status.name as case_status'
+                )
               ->orderBy('created_at', 'DESC')
               ->paginate(10);
 

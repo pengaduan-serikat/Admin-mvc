@@ -72,10 +72,10 @@
       <div class="col-md-6">
         <label for="executors">Ajukan Executor</label>   
 
-        @if ($data['submittedStatus']->id != $data['case']->case_status_id)
-          <select class="form-control" name="executor" required disabled style="color: #000;">
-        @else
+        @if (!$data['case']->executor_id)
           <select class="form-control" name="executor" required >            
+        @else
+          <select class="form-control" name="executor" required disabled style="color: #000;">
         @endif
           @if (count($data['executors']) === 0)
               <option value="">Tidak ada executor yang aktif</option>
@@ -146,7 +146,7 @@
     </div>
   </div> --}}
 
-  @if ($data['submittedStatus']->id == $data['case']->case_status_id)
+  @if (!$data['case']->executor_id)
     <div class="row">
         <br/>
         <div class="col-md-6">
@@ -155,4 +155,32 @@
     </div>
   @endif
 </form>
+<br />
+<h4><strong>Riwayat Pengaduan:</strong></h4>
+<div class="row">
+  <table class="table" id="tableCat">
+    <thead>
+      <th width="10%">No.</th>
+      <th>Tanggal</th>
+      <th>Status</th>
+      <th>Deskripsi</th>
+    </thead>
+    <tbody>
+      @if (count($data['feedbacks']) > 0)
+        @foreach ($data['feedbacks'] as $feedbacks)
+          <tr>
+            <td>{{$loop->index+1}}</td>
+            <td>{{date('d M Y - H:m', strtotime($feedbacks->created_at))}}</td>
+            <td>{{$feedbacks->case_status}}</td>
+            <td>{{$feedbacks->description}}</td>
+          </tr>
+        @endforeach
+      @else
+      <tr>
+        <td colspan="5" align="center"> Tidak ada data</td>
+      </tr>
+      @endif
+    </tbody>
+  </table>
+</div>
 @endsection
