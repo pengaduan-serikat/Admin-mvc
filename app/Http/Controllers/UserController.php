@@ -134,9 +134,13 @@ class UserController extends Controller
   public function store(Request $request)
   {
 
-    $messages = ["unique" => 'NIK telah digunakan, gunakan NIK lain'];
+    $messages = [
+      "unique" => 'NIK telah digunakan, gunakan NIK lain',
+      "max" => 'Minimal karakter NIK adalah 5 dan maximal adalah 10',
+      "min" => ''
+    ];
     $request->validate([
-      'NIK' => 'required|unique:users',
+      'NIK' => 'required|unique:users|max:10|min:5',
     ], $messages);
 
     $messages = ["unique" => 'email telah digunakan, gunakan email lain'];
