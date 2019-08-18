@@ -170,7 +170,7 @@
         @foreach ($data['feedbacks'] as $feedbacks)
           <tr>
             <td>{{$loop->index+1}}</td>
-            <td>{{date('d M Y - H:m', strtotime($feedbacks->created_at))}}</td>
+            <td>{{date('d M Y - H:i', strtotime($feedbacks->created_at))}}</td>
             <td>{{$feedbacks->case_status}}</td>
             <td>{{$feedbacks->description}}</td>
           </tr>
