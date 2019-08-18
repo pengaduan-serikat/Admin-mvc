@@ -137,10 +137,11 @@ class UserController extends Controller
     $messages = [
       "unique" => 'NIK telah digunakan, gunakan NIK lain',
       "max" => 'Minimal karakter NIK adalah 5 dan maximal adalah 10',
-      "min" => ''
+      "min" => 'Minimal karakter NIK adalah 5 dan maximal adalah 10',
+      "numeric" => 'NIK harus bertipe numeric',
     ];
     $request->validate([
-      'NIK' => 'required|unique:users|max:10|min:5',
+      'NIK' => 'required|unique:users|max:10|min:5|numeric',
     ], $messages);
 
     $messages = ["unique" => 'email telah digunakan, gunakan email lain'];
