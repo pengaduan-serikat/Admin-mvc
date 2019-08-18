@@ -281,13 +281,28 @@ class UserController extends Controller
    * @return \Illuminate\Http\Response
    */
   public function update(Request $request, $id)
-  {
+  { 
+
+    $messages = [
+      "unique" => 'NIK telah digunakan, gunakan NIK lain',
+      "digits_between" => 'Minimal karakter NIK adalah 5 dan maximal adalah 10 max',
+      "numeric" => 'NIK harus bertipe numeric',
+    ];
+    $request->validate([
+      'NIK' => 'required|digits_between:5,10|numeric',
+    ], $messages);
+
+    // $messages = ["unique" => 'email telah digunakan, gunakan email lain'];
+    // $request->validate([
+    //   'email' => 'required|unique:users',
+    // ], $messages);
+
     $executor_type = DB::table('access_types')->where('name', '=', 'executor')->first();
     
     $cases = DB::table('cases')->where('user_id', $id)->orWhere('executor_id', $id)->get();
-
-    if ($cases && $request->access_types != $executor_type->id) {
-      return redirect('/users/'.$id)->withErrors(['Tidak bisa merubah hak akses karena user ini sudah menjadi executor dari pengaduan']);      
+    // return $cases;
+    if (count($cases) > 1 && $request->access_types != $executor_type->id) {
+      return redirect('/users/'.$id)->withErrors(['Tidak bisa merubah hak akses karena ada pengaduan terkait dengan user ini']);      
     }
     $user = User::find($id);
     $user->first_name = $request->first_name;
