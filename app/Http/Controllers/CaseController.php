@@ -44,6 +44,10 @@ inner join case_status on cases.case_status_id = case_status.id") );
       $queryCase->whereYear ('cases.created_at', '=', $yearFilter);
     }
 
+    if ($caseStatusFilter) {
+      $queryCase->where('cases.case_status_id', '=', $caseStatusFilter);
+    }
+
     $data = [
       'cases' => $queryCase->paginate(10),
       'month' => $month,
