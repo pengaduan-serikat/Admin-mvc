@@ -22,14 +22,16 @@ class CreateCaseController extends Controller
 			return response()->json($validator->errors(), 200);
     }
 
+    $case_status = DB::table('case_status')->where('name', 'Submitted')->first();
+
     $user = Auth::user();
     $case = new Cases();
     $case->user_id = $user->id;
     $case->title = $request->title;
     $case->description = $request->description;
+    $case->case_status_id = $case_status->id;
     $case->save();
     
-    $case_status = DB::table('case_status')->where('name', 'Submitted')->first();
 
     $feedback = new Feedback();
     $feedback->case_id = $case->id;
