@@ -3,10 +3,9 @@
 @section('content')
 {{-- <h2>ini dari user index</h2> --}}
 <h2><strong>Data Pengaduan:</strong></h2>
-<div class="col-md-1">
-  <label>Bulan</label>
-</div>
+
 <div class="col-md-3">
+    <label>Bulan</label>
   <select class="form-control" name="monthFilter" id="monthFilter">
     <option value="0">All</option>
     @foreach ($data['month'] as $month)
@@ -21,10 +20,9 @@
     @endforeach
   </select>
 </div>
-<div class="col-md-1">
-  <label>Tahun</label>
-</div>
+
 <div class="col-md-3">
+    <label>Tahun</label>
   <select class="form-control" name="yearFilter" id="yearFilter">
       <option value="0">All</option>
       @foreach ($data['year'] as $year)
@@ -39,15 +37,33 @@
       @endforeach
   </select>
 </div>
+
 <div class="col-md-3">
-  <a class="btn btn-primary" onclick="window.location.replace(`/cases?month=`+document.getElementById('monthFilter').value+'&year='+document.getElementById('yearFilter').value)">Filter</a>
+  <label>Status Pengaduan</label> 
+  <select class="form-control" name="caseStatus" id="caseStatus">
+      <option value="0">All</option>
+      @foreach ($data['case_status'] as $case_status)
+        <option 
+          value="{{$case_status->value}}"
+          @if ($case_status->value == app('request')->input('case_status'))
+            selected          
+          @endif
+        >
+          {{$case_status->name}}
+        </option>
+      @endforeach
+  </select>
+</div>
+<div class="col-md-3">
+  <br />
+  <a class="btn btn-primary" onclick="window.location.replace(`/cases?month=`+document.getElementById('monthFilter').value+'&year='+document.getElementById('yearFilter').value+'&case_status='+document.getElementById('caseStatus').value)">Filter</a>
 </div>
 <table class="table" id="tableCat">
   <thead>
     <th width="10%">No.</th>
     <th>Judul</th>
     <th>Diadukan Oleh</th>
-    {{-- <th>Status Pengaduan</th> --}}
+    <th>Status Pengaduan</th>
     <th>Tanggal Pengaduan</th>
     <th>Action</th>
   </thead>
@@ -58,7 +74,7 @@
           <td>{{$loop->index+1}}</td>
           <td>{{$case->title}}</td>
           <td>{{$case->full_name}}</td>
-          {{-- <td>{{$case->case_status}}</td> --}}
+          <td>{{$case->case_status}}</td>
           <td>{{date('d M Y', strtotime($case->created_at))}}</td>
 
           <td><a href="/cases/{{$case->id}}">Detail</a>

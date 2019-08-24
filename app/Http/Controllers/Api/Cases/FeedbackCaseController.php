@@ -16,8 +16,11 @@ class FeedbackCaseController extends Controller
     $feedbackStatus = DB::table('feedbacks')->where('case_id', '=', $id)->orderBy('created_at', 'DESC')->first();
     $completeStatus = DB::table('case_status')->where('name', 'Completed')->first();
 
-    $case = Cases::find($id);
+    $caseUpdate = Cases::find($id);
 
+    if (!$feedbackStatus) {
+      return response()->json(['message' => 'Case tidak ditemukan'], 400);
+    }
     if ($feedbackStatus->case_status_id !== $inProgStatus->id) {
       return response()->json(['message' => 'Hanya pengaduan berstatus In Progress yang dapat diberikan feedback'], 400);
     }
@@ -28,9 +31,8 @@ class FeedbackCaseController extends Controller
     $feedback->case_status_id = $completeStatus->id;
     $feedback->save();
 
-    // $case->feedback_id = $feedback->id;
-    // $case->case_status_id = $completeStatus->id;
-    // $case->save();
+    $caseUpdate->case_status_id = $completeStatus->id;
+    $caseUpdate->save();
     
     $case = Cases::where('cases.id', '=', $id)
       ->join('users as user', 'user.id', '=', 'cases.user_id')

@@ -18,6 +18,9 @@ class ForgotPasswordController extends Controller
       return response()->json(['message' => 'Email tidak terdaftar'], 400);
     }
     
+    if ($user->active != 1) {
+      return response()->json(['message' => 'User belum aktif'], 400);
+    }
     $datetime = Carbon::now()->timestamp;
     $newPassword = substr(strval($datetime), 4);
     
