@@ -37,9 +37,13 @@ class RegisterController extends Controller
       return response()->json(['message' => 'Incorrect NIK or email'], 400);
     }
     
-    if ($user->active) {
+    if ($user->active == 1) {
       return response()->json(['message' => 'User already active'], 400);
     }
+
+    if ($user->active == 2) {
+			return response()->json(['message' => 'User expired'], 400);
+		}
 
     $user->active = true;
     $user->password = bcrypt($request->password);

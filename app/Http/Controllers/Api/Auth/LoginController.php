@@ -60,8 +60,8 @@ class LoginController extends Controller
 		// 	return response()->json(['message' => 'User type is not employee'], 400);
 		// }
 
-		if (!$user->active) {
-			return response()->json(['message' => 'User not active'], 400);
+		if ($user->active != 1) {
+			return response()->json(['message' => 'User not active or expired'], 400);
 		}
 		
 		// $currentUser = array_merge($user->toArray(), ['token' => $token]);
