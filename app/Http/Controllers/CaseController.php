@@ -12,7 +12,7 @@ class CaseController extends Controller
   public function index(Request $request) {
     $month = DB::select( DB::raw("SELECT DISTINCT MONTH(created_at) value, MONTHNAME(created_at) name from cases") );
     $year = DB::select( DB::raw("SELECT DISTINCT YEAR(created_at) value, YEAR(created_at) name from cases") );
-    $caseStatus = DB::select( DB::raw("select cases.case_status_id as value, case_status.name as name from cases
+    $caseStatus = DB::select( DB::raw("SELECT DISTINCT cases.case_status_id as value, case_status.name as name from cases
 inner join case_status on cases.case_status_id = case_status.id") );
     
     $monthFilter = $request->query('month');
