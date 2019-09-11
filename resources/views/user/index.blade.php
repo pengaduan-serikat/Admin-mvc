@@ -73,7 +73,7 @@
             @if (Auth::user()->id !== $user->id)
             |
             {{-- delete user button --}}
-            <a href="#" onclick="event.preventDefault(); document.getElementById('delete-form-{{ $user->id }}').submit();">Delete</a>
+            <a href="#" onclick="event.preventDefault(); confirmDelete('{{$user->id}}');">Delete</a>
             <form action="/users/{{$user->id}}" method="POST" id="delete-form-{{ $user->id }}" style="display: none;">
               @csrf
               @method('DELETE')
@@ -92,4 +92,14 @@
   </tbody>
 </table>
 <span>{{$data['users']->links()}}</span>
+<script>
+  function confirmDelete(id) {
+    const confirmAnswer = confirm('Apakah anda yakin menghapus user ini?');
+    // console.log(confirmAnswer);
+    // console.log(`delete-form-${id}`);
+    if (confirmAnswer) {
+      document.getElementById(`delete-form-${id}`).submit();
+    } 
+  }
+</script>
 @endsection

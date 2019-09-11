@@ -22,6 +22,8 @@ use Illuminate\Support\Facades\DB;
 //     return ['message' => 'tessst'];
 // })->middleware('private_access');
 
+Route::get('/download', 'Api\GetDownloadLinkController@index');
+
 Route::middleware('jwt.auth')->get('users', function () {
     return auth('api')->user();
 });

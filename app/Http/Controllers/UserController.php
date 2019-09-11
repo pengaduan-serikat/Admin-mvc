@@ -297,13 +297,13 @@ class UserController extends Controller
     // ], $messages);
 
     $executor_type = DB::table('access_types')->where('name', '=', 'executor')->first();
+    $user = User::find($id);
     
     $cases = DB::table('cases')->where('user_id', $id)->orWhere('executor_id', $id)->get();
     // return $cases;
-    if (count($cases) > 1 && $request->access_types != $executor_type->id) {
+    if (count($cases) >= 1 && $request->access_types != $user->access_type_id) {
       return redirect('/users/'.$id)->withErrors(['Tidak bisa merubah hak akses karena ada pengaduan terkait dengan user ini']);      
     }
-    $user = User::find($id);
     $user->first_name = $request->first_name;
     $user->last_name = $request->last_name;
     $user->access_type_id = $request->access_types;
@@ -361,15 +361,30 @@ class UserController extends Controller
    */
   public function destroy($id)
   {
-    $cases = DB::table('cases')->where('user_id', $id)->orWhere('executor_id', $id)->first();
+    // $cases = DB::table('cases')->where('user_id', $id)->orWhere('executor_id', $id)->first();
     
-    if ($cases) {
-      // return $division_user->division_name;
-      return redirect('/users')->withErrors(['Ada pengaduan yang bersangkutan dengan user ini, tidak bisa menghapus user']);
-    }
+    // if ($cases) {
+    //   // return $division_user->division_name;
+    //   return redirect('/users')->withErrors(['Ada pengaduan yang bersangkutan dengan user ini, tidak bisa menghapus user']);
+    // }
 
-    $user = User::find($id);
-    $user->delete();
+    // $user = User::find($id);
+    // $user->delete();
+
+    
+    DB::delete("delete F from cases C
+    inner join users U on C.user_id = U.id
+    or C.executor_id = U.id
+    inner join feedbacks F on F.case_id = C.id
+    where U.id = '".$id."'");
+
+    DB::delete("delete C from cases C
+    inner join users U on C.user_id = U.id
+    or C.executor_id = U.id
+    where U.id = '".$id."'");
+
+    DB::delete("delete from users 
+    where id = '".$id."'");
     return redirect('/users');
   }
 
