@@ -21,9 +21,12 @@ class EventController extends Controller
   }
 
   public function store(Request $request) {
+    $messages = [
+      "max" => 'Gambar tidak boleh melebihi 2 mb',
+    ];
     request()->validate([
       'picture' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-    ]);
+    ], $messages);
 
     $imageName = time().'.'.request()->picture->getClientOriginalExtension();
     request()->picture->move(storage_path('public'), $imageName);
