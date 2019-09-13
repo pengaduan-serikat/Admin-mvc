@@ -30,6 +30,7 @@ Route::resource('/positions', 'PositionController');
 Route::get('/cases', 'CaseController@index');
 Route::get('/cases/{id}', 'CaseController@show');
 Route::put('/cases/{id}', 'CaseController@update');
+Route::get('/download-cases', 'CaseController@download');
 
 // USER
 Route::resource('/users', 'UserController');

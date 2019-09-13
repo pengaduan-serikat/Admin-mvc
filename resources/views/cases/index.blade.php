@@ -57,7 +57,9 @@
 <div class="col-md-3">
   <br />
   <a class="btn btn-primary" onclick="window.location.replace(`/cases?month=`+document.getElementById('monthFilter').value+'&year='+document.getElementById('yearFilter').value+'&case_status='+document.getElementById('caseStatus').value)">Filter</a>
+  <a class="btn btn-primary" href="/download-cases">Download</a>
 </div>
+
 <table class="table" id="tableCat">
   <thead>
     <th width="10%">No.</th>
