@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Cases;
 use App\Feedback;
+use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\DB;
 
 class CaseController extends Controller
@@ -117,5 +119,31 @@ inner join case_status on cases.case_status_id = case_status.id") );
 
     // return $feedback;
     return redirect('/cases');;
+  }
+
+  public function download() {
+    $queryCase = Cases::query();
+
+    $queryCase->join('users', 'cases.user_id', '=', 'users.id')
+              // ->join('feedbacks', function($join)  {
+              //   $join->on('feedbacks.case_id', '=', 'cases.id')
+              //       ->orderBy('feedbacks.created_at', 'DESC')
+              //       ->limit(1);
+              // })
+              ->join('case_status', 'cases.case_status_id', '=', 'case_status.id')
+              ->select(
+                'cases.*',
+                'case_status.name as case_status',
+                DB::raw("CONCAT(users.first_name, ' ', users.last_name) as full_name"))
+              ->orderBy('cases.created_at', 'desc');
+    $data = $queryCase->get();
+    // return $data[0];
+    // $pdf = App::make('dompdf.wrapper');
+    // $pdf->loadHTML('<h1>Test</h1>');
+    // return $pdf->stream();
+
+    $pdf = PDF::loadView('cases.download', ['data' => $data]);
+    return $pdf->download('laporan_pengaduan.pdf');
+    // return 'testing';
   }
 }
