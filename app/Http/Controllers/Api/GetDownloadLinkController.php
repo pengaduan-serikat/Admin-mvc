@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\DB;
 class GetDownloadLinkController extends Controller
 {
   public function index(){
-    $link = 'https://drive.google.com/file/d/1PkM90E6dNglLWXZ3wv68MZIkk8I4G3L7/view?usp=sharing';
+    $link = 'https://drive.google.com/open?id=18_g0VG_yuCU43giXfVuVAtg7N5cL0SX1';
 
     return response()->json(['url' => $link]);
   }
