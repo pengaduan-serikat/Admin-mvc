@@ -21,7 +21,7 @@
 
     <div class="col-md-6">
         <label for="picture">Upload Gambar</label>
-        <input type="file" class="form-control" name="picture" id="picture" onchange="readURL(this);" required>
+        <input type="file" class="form-control" name="picture" id="picture" onchange="checkFileSize(this);" required>
       </div>
     </div>
     
@@ -45,6 +45,20 @@
 </form>
 
 <script type="text/javascript">
+  function checkFileSize(my) {
+    const input = $("#picture");
+    console.log(input)
+    const preview = $("#preview");
+    const sizePicture = my.files[0].size;
+    if (sizePicture > (2 * 1000 * 1000)) {
+      alert('gambar terlalu besar');
+      input.replaceWith(input.val('').clone(true));
+      $('#preview').attr('src', 'http://icons.iconarchive.com/icons/ccard3dev/dynamic-yosemite/256/Preview-icon.png');
+      return;
+    } else {
+      readURL(my);
+    }
+  }
   function readURL(input) {
       if (input.files && input.files[0]) {
           var reader = new FileReader();
